@@ -1,0 +1,66 @@
+<body>
+<div class="page login-page">
+  <div class="container d-flex align-items-center">
+    <div class="form-holder has-shadow">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="info d-flex align-items-center">
+            <div class="content">
+              <div class="logo">
+                <h1>欢迎登录</h1>
+              </div>
+              <p>项目式学习平台(PBL)管理员系统</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 bg-white">
+          <div class="form d-flex align-items-center">
+            <div class="content">
+              <form [formGroup]="validateForm" (ngSubmit)="submitForm()" class="form-validate" id="loginFrom">
+                <small>不是管理员用户?</small><a class="signup" routerLink="/auth/teacher/login">&nbsp;转至教师用户登录</a><a class="signup" routerLink="/auth/student/login">&nbsp;转至学生用户登录</a>
+                <div class="form-group">
+                  <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
+                    <input id="login-username" type="text" formControlName="userId" name="userId" placeholder="请输入账号" class="input-material">
+                    <ng-template #userErrorTpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        用户id不能为空
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('maxLength')">
+                        用户Id长度不能超过20
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('minLength')">
+                        用户Id长度不能小于6
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('pattern')">
+                        用户Id只能包含数字，字母，下划线
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </div>
+                <div class="form-group">
+                  <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+                    <input id="login-password" type="password" formControlName="password" placeholder="请输入密码" class="input-material"/>
+                    <ng-template #passwordErrorTpl let-control>
+                      <ng-container *ngIf="control.hasError('required')">
+                        用户密码不能为空
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('maxLength')">
+                        用户密码长度不能超过20
+                      </ng-container>
+                      <ng-container *ngIf="control.hasError('minLength')">
+                        用户密码长度不能小于6
+                      </ng-container>
+                    </ng-template>
+                  </nz-form-control>
+                </div>
+                <button id="login" type="submit" class="btn btn-primary">登录</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+

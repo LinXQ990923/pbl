@@ -1,0 +1,18 @@
+{
+  "/student/login":{
+    "target": "http://localhost:9090",
+    "secure": "false"
+  },
+  "/student/signup":{
+    "target": "http://localhost:9090",
+    "secure": "false"
+  },
+  "/teacher/login":{
+    "target": "http://localhost:9090",
+    "secure": "false"
+  },
+  "/admin/login":{
+    "target": "http://localhost:9090",
+    "secure": "false"
+  }
+}
