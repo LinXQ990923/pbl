@@ -1,0 +1,36 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>课程</nz-breadcrumb-item>
+  <nz-breadcrumb-item>项目详情</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <h4>项目介绍</h4>
+  <nz-descriptions nzTitle="">
+    <nz-descriptions-item nzTitle="项目名称">{{projectDetail.name}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="项目介绍">{{projectDetail.description}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="项目开始时间">{{projectDetail.start_time}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="项目结束时间">{{projectDetail.end_time}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="你的身份" *ngIf="projectDetail.role=='1'">组长</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="评分方式" *ngIf="projectDetail.score">老师评分和学生互评</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="评分方式" *ngIf="!projectDetail.score">老师评分</nz-descriptions-item>
+  </nz-descriptions>
+  <nz-divider></nz-divider>
+  <h4>功能区</h4>
+  <nz-descriptions nzTitle="">
+    <nz-descriptions-item nzTitle="任务列表"><button nz-button nzType="primary" [routerLink]="['/student/projectTask',project_id]">查看</button></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="讨论区"><button nz-button nzType="primary" [routerLink]="['/student/projectComment',project_id]">查看</button></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="文件区"><button nz-button nzType="primary" [routerLink]="['/student/projectFile',project_id]">查看</button></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="发布任务" *ngIf="projectDetail.role=='1'"><button nz-button nzType="primary" [routerLink]="['/student/projectTask/create',project_id]">发布</button></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="任务完成情况" *ngIf="projectDetail.role=='1'"><button nz-button nzType="primary" [routerLink]="['/student/projectTask/finish',project_id]">查看</button></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="评分任务" *ngIf="projectDetail.score"><button nz-button nzType="primary" [routerLink]="['/student/projectScore/create',project_id]">评分</button></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="我的分数"><button nz-button nzType="primary" [routerLink]="['/student/projectScore',project_id]">查看</button></nz-descriptions-item>
+  </nz-descriptions>
+  <nz-divider></nz-divider>
+  <h4>组员列表</h4>
+  <nz-list nzBordered>
+    <nz-list-item *ngFor="let item of memberList,let index=index">
+      <span nz-typography>{{index}}. {{item.name}}</span>
+      <p *ngIf="item.role=='1'">组长</p>
+      <p *ngIf="item.role!='1'">组员</p>
+    </nz-list-item>
+  </nz-list>
+</div>

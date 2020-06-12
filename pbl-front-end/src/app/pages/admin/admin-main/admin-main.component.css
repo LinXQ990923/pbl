@@ -1,0 +1,11 @@
+@import "../utils.css";
+.logo span{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.logo{
+  text-align: center;
+}
+.logo i:hover{
+  cursor: pointer;
+}

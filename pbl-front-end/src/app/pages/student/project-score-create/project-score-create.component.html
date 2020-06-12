@@ -1,0 +1,55 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>项目</nz-breadcrumb-item>
+  <nz-breadcrumb-item>评分</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <button nz-button nzType="primary" [routerLink]="['/student/projectDetail',project_id]" style="margin-bottom: 30px">返回</button>
+  <h4>参考信息</h4>
+  <nz-collapse>
+    <nz-collapse-panel nzHeader="任务情况" nzActive="false" nzDisabled="false">
+      <p style="margin:0;" *ngFor="let item of taskList">
+        {{item.name}} : <nz-tag *ngIf="item.finish!='true'" nzColor="error">未完成</nz-tag><nz-tag *ngIf="item.finish=='true'" nzColor="success">已完成</nz-tag>
+      </p>
+      <nz-list-empty *ngIf="!taskList||taskList.length === 0"></nz-list-empty>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="讨论情况" nzActive="false" nzDisabled="false">
+      <p style="margin:0;" *ngFor="let comment of commentList">
+        {{comment.author}} :  {{comment.date}}<br>
+        {{comment.content}}
+        <nz-divider></nz-divider>
+      </p>
+      <nz-list-empty *ngIf="!commentList||commentList.length === 0"></nz-list-empty>
+    </nz-collapse-panel>
+  </nz-collapse>
+  <nz-divider></nz-divider>
+  <h4>评分</h4>
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" *ngIf="!((!commentList||commentList.length==0)&&(!taskList||taskList.length==0))">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>分数</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="scoreErrorTpl">
+        <input nz-input formControlName="score" placeholder="输入最终评定分数" type="number"/>
+        <ng-template #scoreErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            请填写正确的分数（正整数或小数，范围为0-100）
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>评价</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="descriptionErrorTpl">
+        <textarea nz-input formControlName="description" placeholder="输入你的评价" rows="3"></textarea>
+        <ng-template #descriptionErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            评价不能为空
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="12">
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid">发布</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

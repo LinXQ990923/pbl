@@ -1,0 +1,8 @@
+@import "../utils.css";
+.rest-box{
+  display: inline-block;
+  margin: 20px;
+}
+.box{
+  text-align: center;
+}

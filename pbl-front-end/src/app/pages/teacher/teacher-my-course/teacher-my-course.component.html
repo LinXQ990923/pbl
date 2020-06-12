@@ -1,0 +1,19 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>课程</nz-breadcrumb-item>
+  <nz-breadcrumb-item>我的课程</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <div>
+    <div *ngFor="let course of showList let i=index" class="rest-box">
+      <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate" [routerLink]="['/teacher/courseDetail',course.id]">
+        <nz-card-meta [nzTitle]="course.name" [nzDescription]="course.introduction"></nz-card-meta>
+      </nz-card>
+      <ng-template #coverTemplate>
+        <img alt="课程介绍图" [src]="course.image" style="width:240px;height: 180px"/>
+      </ng-template>
+    </div>
+  </div>
+  <div class="box">
+    <nz-pagination [(nzPageIndex)]="pageIndex" [nzTotal]="total" [(nzPageSize)]="pageSize" (nzPageIndexChange)="changePage()"></nz-pagination>
+  </div>
+</div>

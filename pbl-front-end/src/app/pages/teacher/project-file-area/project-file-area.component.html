@@ -1,0 +1,41 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>项目</nz-breadcrumb-item>
+  <nz-breadcrumb-item>文件区</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <button nz-button nzType="primary" [routerLink]="['/teacher/projectDetail',project_id]" style="margin-bottom: 30px">返回</button>
+  <h4>文件上传</h4>
+  <nz-upload
+    nzType="drag"
+    nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+    (nzChange)="handleChange($event)">
+    <p class="ant-upload-drag-icon">
+      <i nz-icon nzType="inbox"></i>
+    </p>
+    <p class="ant-upload-text">点击或拖拽文件到此处上传</p>
+    <p class="ant-upload-hint">
+      同时仅支持一个文件上传
+    </p>
+  </nz-upload>
+  <nz-divider></nz-divider>
+  <h4>文件列表</h4>
+  <nz-list nzItemLayout="horizontal">
+    <nz-list-item *ngFor="let item of fileList">
+      <nz-list-item-meta nzDescription="上传时间：{{item.date}}">
+        <nz-list-item-meta-title>
+          {{ item.name }}
+        </nz-list-item-meta-title>
+      </nz-list-item-meta>
+      上传人：{{item.uploader}}
+      <ul nz-list-item-actions>
+        <nz-list-item-action>
+          <button nz-button nzType="primary" nzOrientation="right" class="right">下载</button>
+        </nz-list-item-action>
+        <nz-list-item-action>
+          <button nz-button *ngIf="item.delete=='true'" nzType="primary" nzOrientation="right" class="right">删除</button>
+        </nz-list-item-action>
+      </ul>
+    </nz-list-item>
+    <nz-list-empty *ngIf="!fileList||fileList.length === 0"></nz-list-empty>
+  </nz-list>
+</div>

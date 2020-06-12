@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-group">
                   <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
-                    <input id="login-password" type="password" formControlName="password" placeholder="请输入密码" class="input-material"/>
+                    <input id="login-password" type="password" formControlName="password" placeholder="请输入密码" class="input-material" (ngModelChange)="validateConfirmPassword()"/>
                     <ng-template #passwordErrorTpl let-control>
                       <ng-container *ngIf="control.hasError('required')">
                         用户密码不能为空

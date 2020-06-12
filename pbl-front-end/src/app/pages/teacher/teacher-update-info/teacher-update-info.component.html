@@ -1,0 +1,94 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>设置</nz-breadcrumb-item>
+  <nz-breadcrumb-item>修改信息</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <h3>修改</h3>
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>用户名</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="username" placeholder="输入您的新名字" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            用户名不能为空！
+          </ng-container>
+          <ng-container *ngIf="control.hasError('minLength')">
+            用户名长度不能小于2！
+          </ng-container>
+          <ng-container *ngIf="control.hasError('maxLength')">
+            用户名长度不能超过6！
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>学校</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="schoolErrorTpl">
+        <input nz-input formControlName="school" placeholder="输入您的学校名称" />
+        <ng-template #schoolErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('minLength')">
+            学校名称长度不能小于4！
+          </ng-container>
+          <ng-container *ngIf="control.hasError('maxLength')">
+            学校名称长度不能超过20！
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>学院</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="departmentErrorTpl">
+        <input nz-input formControlName="department" placeholder="输入您的学院名称" />
+        <ng-template #departmentErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('minLength')">
+            学院名称长度不能小于3！
+          </ng-container>
+          <ng-container *ngIf="control.hasError('maxLength')">
+            学院名称长度不能超过20！
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>E-mail</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="emailErrorTpl">
+        <input nz-input formControlName="email" placeholder="email" type="email" />
+        <ng-template #emailErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('email')">
+            请输入正确的邮箱！
+          </ng-container>
+          <ng-container *ngIf="control.hasError('required')">
+            邮箱不能为空！
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>头像</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzValidatingTip="头像信息">
+        <nz-upload
+          class="avatar-uploader"
+          nzAction="/image/upload"
+          nzName="upload_image"
+          nzListType="picture-card"
+          [nzShowUploadList]="false"
+          [nzBeforeUpload]="beforeUpload"
+          (nzChange)="handleChange($event)"
+        >
+          <ng-container *ngIf="!avatarUrl">
+            <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+            <div class="ant-upload-text">选择照片</div>
+          </ng-container>
+          <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%"  alt="上传的图片"/>
+        </nz-upload>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="12">
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid">修改</button>
+        <button nz-button (click)="resetForm($event)">Reset</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

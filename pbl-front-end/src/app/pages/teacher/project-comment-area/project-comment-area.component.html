@@ -1,0 +1,46 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>项目</nz-breadcrumb-item>
+  <nz-breadcrumb-item>评论区</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <button nz-button nzType="primary" [routerLink]="['/teacher/projectDetail',project_id]" style="margin-bottom: 30px">返回</button>
+
+  <nz-comment-content>
+    <nz-form-item>
+      <textarea [(ngModel)]="reply" nz-input rows="3"></textarea>
+    </nz-form-item>
+    <nz-form-item>
+      <button nz-button nzType="primary" [nzLoading]="submitting" [disabled]="reply==''" (click)="addNewComment()">
+        发表新评论
+      </button>
+    </nz-form-item>
+  </nz-comment-content>
+  <ng-template #commentTemplateRef let-comment="comment">
+    <nz-comment [nzAuthor]="comment.author" [nzDatetime]="comment.datetime">
+      <nz-avatar nz-comment-avatar nzIcon="user"></nz-avatar>
+      <nz-comment-content>
+        <p>{{ comment.content }}</p>
+      </nz-comment-content>
+      <nz-comment-content>
+        <nz-form-item>
+          <textarea [(ngModel)]="comment.reply" nz-input rows="1"></textarea>
+        </nz-form-item>
+        <nz-form-item>
+          <button nz-button nzType="primary" [nzLoading]="comment.submitting" [disabled]="comment.reply==''" (click)="handleSubmit(comment)">
+            回复
+          </button>
+        </nz-form-item>
+      </nz-comment-content>
+      <ng-container *ngIf="comment.children && comment.children.length">
+        <ng-template ngFor let-child [ngForOf]="comment.children">
+          <ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ comment: child }"> </ng-template>
+        </ng-template>
+      </ng-container>
+    </nz-comment>
+  </ng-template>
+  <nz-list  [nzDataSource]="data" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+    <ng-template #item let-item>
+      <ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ comment: item }"> </ng-template>
+    </ng-template>
+  </nz-list>
+</div>

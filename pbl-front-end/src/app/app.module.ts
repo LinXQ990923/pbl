@@ -11,8 +11,10 @@ import { zh_CN } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import {
-  NzGridModule,
-  NzLayoutModule,
+  NzAvatarModule, NzButtonModule,
+  NzCommentModule,
+  NzGridModule, NzInputModule,
+  NzLayoutModule, NzListModule, NzMessageService,
   NzModalModule,
   NzModalService,
   NzPageHeaderModule,
@@ -20,13 +22,20 @@ import {
 } from "ng-zorro-antd";
 import { PageErrorComponent } from './components/page-error/page-error.component';
 import {MemoryService} from "./service/memory.service";
+import {AuthService} from "./service/auth.service";
+import {StudentService} from "./service/student.service";
+import {CourseService} from "./service/course.service";
+import { CommentsComponent } from './components/comments/comments.component';
+import {ProjectService} from "./service/project.service";
+import {TeacherService} from "./service/teacher.service";
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageErrorComponent
+    PageErrorComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,11 +47,23 @@ registerLocaleData(zh);
     NzPageHeaderModule,
     NzGridModule,
     NzTypographyModule,
-    NzModalModule
+    NzModalModule,
+    NzCommentModule,
+    NzAvatarModule,
+    NzListModule,
+    NzInputModule,
+    NzButtonModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN },
-  NzModalService,
-  MemoryService],
+    NzModalService,
+    MemoryService,
+    NzMessageService,
+    AuthService,
+    StudentService,
+    CourseService,
+    ProjectService,
+    TeacherService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

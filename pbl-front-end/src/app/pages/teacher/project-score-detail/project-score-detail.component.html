@@ -1,0 +1,18 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>项目</nz-breadcrumb-item>
+  <nz-breadcrumb-item>我的分数</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <button nz-button nzType="primary" [routerLink]="['/teacher/projectDetail',project_id]" style="margin-bottom: 30px">返回</button>
+  <h4>评分信息</h4>
+  <div *ngFor="let item of scores">
+    <nz-descriptions nzTitle="">
+      <nz-descriptions-item nzTitle="评分人" *ngIf="item.role=='1'">课程老师</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="评分人" *ngIf="item.role!='1'">组内成员</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="项目名称">{{item.name}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="分数">{{item.grade}}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="评价">{{item.message}}</nz-descriptions-item>
+    </nz-descriptions>
+    <nz-divider></nz-divider>
+  </div>
+</div>

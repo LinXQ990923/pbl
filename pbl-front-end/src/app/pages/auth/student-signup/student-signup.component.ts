@@ -123,4 +123,7 @@ export class StudentSignupComponent implements OnInit {
     });
   }
 
+  validateConfirmPassword(): void {
+    setTimeout(() => this.validateForm.controls.confirm.updateValueAndValidity());
+  }
 }

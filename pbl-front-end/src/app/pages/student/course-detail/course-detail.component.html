@@ -1,0 +1,37 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>课程</nz-breadcrumb-item>
+  <nz-breadcrumb-item>课程详情</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <h4>课程介绍</h4>
+  <button nz-button *ngIf="courseDetail.end_time>=date&&courseDetail.isAdd!='true'" nzType="primary" nzOrientation="right" class="right" (click)="addCourse(courseDetail.id)">加入该课程</button>
+  <button nz-button *ngIf="courseDetail.end_time>=date&&courseDetail.isAdd=='true'" nzType="primary" nzOrientation="right" class="right" disabled>已加入</button>
+  <button nz-button *ngIf="courseDetail.end_time<date" nzType="primary" nzOrientation="right" class="right" disabled>已过期</button>
+  <nz-descriptions nzTitle="">
+    <nz-descriptions-item nzTitle="课程"><img alt="课程介绍图" [src]="courseDetail.image" style="width:240px;height: 180px"/></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="课程名称">{{courseDetail.name}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="课程老师">{{courseDetail.teacher}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="课程简介">{{courseDetail.introduction}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="课程结束时间">{{courseDetail.end_time}}</nz-descriptions-item>
+  </nz-descriptions>
+
+  <h4>项目列表</h4>
+  <nz-list nzItemLayout="horizontal" [nzLoading]="loading">
+    <nz-list-item *ngFor="let item of data">
+      <nz-list-item-meta [nzDescription]="item.description">
+        <nz-list-item-meta-title>
+          {{ item.name }}
+        </nz-list-item-meta-title>
+      </nz-list-item-meta>
+      时间：{{item.start_time}} -- {{item.end_time}}
+      <ul nz-list-item-actions>
+        <nz-list-item-action>
+          <button nz-button *ngIf="item.end_time>=date&&item.isAdd!='true'" nzType="primary" nzOrientation="right" class="right" (click)="addProject(item.id)">加入该项目</button>
+          <button nz-button *ngIf="item.end_time>=date&&item.isAdd=='true'" nzType="primary" nzOrientation="right" class="right" [routerLink]="['/student/projectDetail',item.id]">查看</button>
+          <button nz-button *ngIf="item.end_time<date" nzType="primary" class="right" disabled>已过期</button>
+        </nz-list-item-action>
+      </ul>
+    </nz-list-item>
+    <nz-list-empty *ngIf="!data||data.length === 0"></nz-list-empty>
+  </nz-list>
+</div>

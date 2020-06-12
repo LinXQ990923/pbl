@@ -95,8 +95,7 @@ export class StudentLoginComponent implements OnInit {
             password:this.validateForm.value.password
           });
         }else this.memory.unsetStudent();
-        /* 导航到首页 */
-        this.router.navigate(['/','auth','student','signup']);
+        this.router.navigate(['/','student','info']);
       }
       else{
         this.modal.error({

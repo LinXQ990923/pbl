@@ -1,0 +1,31 @@
+<nz-layout>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <div class="logo" *ngIf="studentInfo">
+      <nz-avatar nzIcon="user" [nzSrc]="studentInfo.image"></nz-avatar><span>{{studentInfo.name}}</span> <i nz-icon [nzType]="'import'" (click)="logout()"></i>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-submenu nzTitle="课程" nzIcon="book">
+        <ul>
+          <li nz-menu-item routerLink="/student/courses">所有课程</li>
+          <li nz-menu-item routerLink="/student/myCourses">我的课程</li>
+        </ul>
+      </li>
+      <li nz-submenu nzTitle="设置" nzIcon="setting">
+        <ul>
+          <li nz-menu-item routerLink="/student/info">查看信息</li>
+          <li nz-menu-item routerLink="/student/info/update">修改信息</li>
+          <li nz-menu-item routerLink="/student/password/update">修改密码</li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed = !isCollapsed"></i>
+    </nz-header>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer>PBL System ©2020</nz-footer>
+  </nz-layout>
+</nz-layout>

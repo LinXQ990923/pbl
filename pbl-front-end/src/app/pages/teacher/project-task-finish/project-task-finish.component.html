@@ -1,0 +1,18 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>项目</nz-breadcrumb-item>
+  <nz-breadcrumb-item>任务完成情况</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <button nz-button nzType="primary" [routerLink]="['/teacher/projectDetail',project_id]" style="margin-bottom: 30px">返回</button>
+  <h4>任务列表</h4>
+  <nz-collapse>
+    <nz-collapse-panel *ngFor="let panel of panels,let index=index" [nzHeader]="panel.name" [nzActive]="panel.active" [nzDisabled]="panel.disabled">
+      <p style="margin:0;" *ngFor="let item of taskFinish[index].not_finished">
+        {{item}} : <nz-tag nzColor="error">未完成</nz-tag>
+      </p>
+      <p style="margin:0;" *ngFor="let item of taskFinish[index].finished">
+        {{item}} : <nz-tag nzColor="success">已完成</nz-tag>
+      </p>
+    </nz-collapse-panel>
+  </nz-collapse>
+</div>

@@ -95,7 +95,7 @@ export class TeacherLoginComponent implements OnInit {
           });
         }else this.memory.unsetTeacher();
         /* 导航到首页 */
-        this.router.navigate(['/','auth','teacher','signup']);
+        this.router.navigate(['/','teacher','info']);
       }
       else{
         this.modal.error({

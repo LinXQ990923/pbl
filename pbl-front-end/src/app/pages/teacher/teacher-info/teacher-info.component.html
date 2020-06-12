@@ -1,0 +1,24 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>设置</nz-breadcrumb-item>
+  <nz-breadcrumb-item>查看信息</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <nz-descriptions nzTitle="个人信息" nzBordered>
+    <nz-descriptions-item nzTitle="用户名">{{teacherInfo.name}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="账号" [nzSpan]="2">{{teacherInfo.id}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="手机号" [nzSpan]="3" *ngIf="teacherInfo.phone">
+      {{teacherInfo.phone}}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="手机号" [nzSpan]="3" *ngIf="!teacherInfo.phone">
+      暂未填写手机号
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="当前状态" [nzSpan]="3">
+      <nz-badge nzStatus="processing" nzText="登陆中"></nz-badge>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="邮箱">{{teacherInfo.email}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="学校" *ngIf="teacherInfo.school">{{teacherInfo.school}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="学校" *ngIf="!teacherInfo.school">暂未填写学校信息</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="学院" *ngIf="teacherInfo.department">{{teacherInfo.department}}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="学院" *ngIf="!teacherInfo.department">暂未填写学院信息</nz-descriptions-item>
+  </nz-descriptions>
+</div>

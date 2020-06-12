@@ -1,0 +1,104 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>账号管理</nz-breadcrumb-item>
+  <nz-breadcrumb-item>教师</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="inner-content">
+  <h3>增添新帐号</h3>
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>用户id</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input type="text" formControlName="userId" name="userId" placeholder="请输入账号">
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            用户id不能为空
+          </ng-container>
+          <ng-container *ngIf="control.hasError('maxLength')">
+            用户Id长度不能超过20
+          </ng-container>
+          <ng-container *ngIf="control.hasError('minLength')">
+            用户Id长度不能小于6
+          </ng-container>
+          <ng-container *ngIf="control.hasError('pattern')">
+            用户Id只能包含数字，字母，下划线
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>用户姓名</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="nameErrorTpl">
+        <input nz-input type="text" formControlName="username" name="username" placeholder="请输入姓名">
+        <ng-template #nameErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            用户id不能为空
+          </ng-container>
+          <ng-container *ngIf="control.hasError('maxLength')">
+            用户姓名长度不能超过6
+          </ng-container>
+          <ng-container *ngIf="control.hasError('minLength')">
+            用户姓名长度不能小于2
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>用户初始密码</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+        <input nz-input type="password" formControlName="password" placeholder="请输入密码"/>
+        <ng-template #passwordErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            用户密码不能为空
+          </ng-container>
+          <ng-container *ngIf="control.hasError('maxLength')">
+            用户密码长度不能超过20
+          </ng-container>
+          <ng-container *ngIf="control.hasError('minLength')">
+            用户密码长度不能小于6
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>用户邮箱</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="emailErrorTpl">
+        <input nz-input formControlName="email" placeholder="请输入邮箱" type="email"/>
+        <ng-template #emailErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('email')">
+            请填写正确的邮箱
+          </ng-container>
+          <ng-container *ngIf="control.hasError('required')">
+            邮箱不能为空
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="12">
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid">创建</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <nz-divider></nz-divider>
+  <h3>教师账号列表</h3>
+  <nz-table [nzData]="listOfData">
+    <thead>
+    <tr>
+      <th>账号</th>
+      <th>姓名</th>
+      <th>邮箱</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of listOfData">
+      <td>{{ data.id }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.email }}</td>
+      <td>
+        <a (click)="deleteTeacher(data.id)">删除</a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
