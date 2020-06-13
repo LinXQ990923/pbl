@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fudan.edu.pbl.mapper.CourseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="fudan.edu.pbl.entity.Course">
+        <id column="courseID" property="courseID" />
+        <result column="courseName" property="courseName" />
+        <result column="introduction" property="introduction" />
+        <result column="imgID" property="imgID" />
+        <result column="startTime" property="startTime" />
+        <result column="endTime" property="endTime" />
+        <result column="hasDelete" property="hasDelete" />
+        <result column="teacherID" property="teacherID" />
+    </resultMap>
+
+    <resultMap id="CourseUserResultMap" type="fudan.edu.pbl.entity.Course" autoMapping="true">
+    <id column="courseID" property="courseID"/>
+    <!--association:完成子对象的映射-->
+    <!--property:子对象在父对象中的属性名-->
+    <!--javaType:子对象的java类型-->
+    <!--autoMapping:完成子对象的自动映射，若开启驼峰，则按驼峰匹配-->
+    <collection property="userList" javaType="List" ofType="fudan.edu.pbl.entity.User" autoMapping="true">
+        <id column="userID" property="userID"/>
+    </collection>
+</resultMap>
+
+    <select id="getCourseByIdWithStudent" resultMap="CourseUserResultMap">
+        select * from course c left join course_user cu on c.courseID=cu.courseID left join user u on cu.userID = u.userID where c.courseID = #{id}
+    </select>
+
+    <resultMap id="ResultMap1" type="fudan.edu.pbl.entity.Course" autoMapping="true">
+        <id column="courseID" property="courseID"/>
+        <!--association:完成子对象的映射-->
+        <!--property:子对象在父对象中的属性名-->
+        <!--javaType:子对象的java类型-->
+        <!--autoMapping:完成子对象的自动映射，若开启驼峰，则按驼峰匹配-->
+        <collection property="programList" javaType="List" ofType="fudan.edu.pbl.entity.Program" autoMapping="true">
+            <id column="programID" property="programID"/>
+        </collection>
+    </resultMap>
+
+    <select id="getCourseByIdWithProgram" resultMap="ResultMap1">
+        select * from course c left join program p on c.courseID=p.courseID  where c.courseID = #{id}
+    </select>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        courseID, courseName, introduction, imgID, startTime, endTime, hasDelete, teacherID
+    </sql>
+
+</mapper>

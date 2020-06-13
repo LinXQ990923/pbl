@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fudan.edu.pbl.mapper.ProgramMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="fudan.edu.pbl.entity.Program">
+        <id column="programID" property="programID" />
+        <result column="programName" property="programName" />
+        <result column="introduction" property="introduction" />
+        <result column="startTime" property="startTime" />
+        <result column="endTime" property="endTime" />
+        <result column="courseID" property="courseID" />
+        <result column="gradePolicy" property="gradePolicy" />
+        <result column="hasDelete" property="hasDelete" />
+    </resultMap>
+
+    <resultMap id="ResultMap1" type="fudan.edu.pbl.entity.Program" autoMapping="true">
+        <id column="programID" property="programID"/>
+        <!--association:完成子对象的映射-->
+        <!--property:子对象在父对象中的属性名-->
+        <!--javaType:子对象的java类型-->
+        <!--autoMapping:完成子对象的自动映射，若开启驼峰，则按驼峰匹配-->
+        <collection property="taskList" javaType="List" ofType="fudan.edu.pbl.entity.Task" autoMapping="true">
+            <id column="taskID" property="taskID"/>
+        </collection>
+    </resultMap>
+
+    <select id="getProgramByIdWithTask" resultMap="ResultMap1">
+        select * from program p left join task t on p.prgramID=t.programID  where c.programID = #{id}
+    </select>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        programID, programName, introduction, startTime, endTime, courseID, gradePolicy, hasDelete
+    </sql>
+
+</mapper>

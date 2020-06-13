@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fudan.edu.pbl.mapper.FileMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="fudan.edu.pbl.entity.File">
+        <id column="fileID" property="fileID" />
+        <result column="fileName" property="fileName" />
+        <result column="filePath" property="filePath" />
+        <result column="uploadTime" property="uploadTime" />
+        <result column="uploadUserID" property="uploadUserID" />
+        <result column="programID" property="programID" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        fileID, fileName, filePath, uploadTime, uploadUserID, programID
+    </sql>
+
+</mapper>
