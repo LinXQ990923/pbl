@@ -19,12 +19,12 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CourseService {
-  getAllCoursesUrl="/student/courses";
-  getMyCoursesUrl="/student/mycourses";
+  getAllCoursesUrl="/user/courses";
+  getMyCoursesUrl="/user/mycourses";
   getCourseDetailUrl="/course/detail";
   addCourseUrl="/course/add";
   createCourseUrl="/course/create";
-  deleteCourseUrl="course/delete";
+  deleteCourseUrl="/course/delete";
 
   constructor(
     private http:HttpClient/* 依赖注入 */

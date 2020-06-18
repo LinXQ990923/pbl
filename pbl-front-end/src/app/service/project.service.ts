@@ -28,14 +28,14 @@ const httpOptions = {
 export class ProjectService {
   getProjectListUrl="/course/projects";
   addProjectUrl="/course/project/add";
-  getProjectUrl="/course/projectDetail";
+  getProjectUrl="/course/project/Detail";
   getMembersUrl="/course/project/members";
   getScoreUrl="/course/project/score";
   getCommentsUrl="/course/project/comment";
   addCommentUrl="/course/project/comment/add";
   getFilesUrl="/course/project/file";
   createTaskUrl="/course/project/task/create";
-  getTaskFinishUrl="/course/project/task/finish";
+  getTaskFinishUrl="/course/project/task/finished";
   getScoreCommentsUrl="/course/project/score/comment";//返回被评分人的讨论记录
   getScoreTaskUrl="/course/project/score/task";//返回被评分人的任务完成情况
   addScoreUrl="/course/project/score/add";
