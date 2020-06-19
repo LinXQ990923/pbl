@@ -60,10 +60,10 @@ public class UserMapperTest {
         course.setEndTime(LocalDateTime.now());
         course.setStartTime(LocalDateTime.now());
         course.setHasDelete(0);
-        course.setImgID(2);
+        course.setImgPath("/test");
         course.setIntroduction("intro");
         course.setTeacherID("test1");
-        //courseMapper.insert(course);
+        courseMapper.insert(course);
 
         User user=userService.getById("test");
 

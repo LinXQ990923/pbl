@@ -32,8 +32,8 @@ public class User implements Serializable {
 
     private String department;
 
-    @TableField("imgID")
-    private Integer imgID;
+    @TableField("imgPath")
+    private String imgPath;
 
     private Integer role;
 
@@ -86,13 +86,7 @@ public class User implements Serializable {
     public void setDepartment(String department) {
         this.department = department;
     }
-    public Integer getImgID() {
-        return imgID;
-    }
 
-    public void setImgID(Integer imgID) {
-        this.imgID = imgID;
-    }
     public Integer getRole() {
         return role;
     }
@@ -111,8 +105,16 @@ public class User implements Serializable {
             ", phone=" + phone +
             ", school=" + school +
             ", department=" + department +
-            ", imgID=" + imgID +
+            ", imgPath=" + imgPath +
             ", role=" + role +
         "}";
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 }
