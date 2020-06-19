@@ -11,6 +11,7 @@ import fudan.edu.pbl.response.ResultResponse;
 import fudan.edu.pbl.response.StudentResponse;
 import fudan.edu.pbl.response.TeacherResponse;
 import fudan.edu.pbl.service.AdminService;
+import fudan.edu.pbl.service.CourseService;
 import fudan.edu.pbl.service.FileService;
 import fudan.edu.pbl.service.UserService;
 import fudan.edu.pbl.service.impl.AdminServiceImpl;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -63,7 +65,7 @@ public class AdminController {
             if(user.getRole() == 0){
                 studentList.add(new StudentResponse(
                         user.getUserID(), user.getUserName(), user.getSchool(), user.getDepartment(),
-                        user.getEmail(), user.getPhone(), user.getImgID().toString()));
+                        user.getEmail(), user.getPhone(), user.getImgPath()));
             }
         }
         return studentList;
@@ -91,7 +93,7 @@ public class AdminController {
             if(user.getRole() == 1){
                 teacherList.add(new TeacherResponse(
                         user.getUserID(), user.getUserName(), user.getSchool(), user.getDepartment(),
-                        user.getEmail(), user.getPhone(), fileService.getById(user.getImgID()).getFilePath()));
+                        user.getEmail(), user.getPhone(), user.getImgPath()));
             }
         }
         return teacherList;
@@ -112,13 +114,37 @@ public class AdminController {
     public ResultResponse createCourse(@RequestBody CreateCourseRequest request){
         CourseServiceImpl courseService = new CourseServiceImpl();
         Course course = new Course();
-        //course.
-        return null;
+        course.setTeacherID(request.getTeacher_id());
+        course.setCourseName(request.getName());
+        course.setIntroduction(request.getDescription());
+        course.setStartTime(LocalDateTime.parse(request.getStart_time()));
+        course.setEndTime(LocalDateTime.parse(request.getEnd_time()));
+        Boolean flag = courseService.save(course);
+        if(flag){
+            return new ResultResponse("true", "Create Course successfully!");
+        }else{
+            return new ResultResponse("false", "Create Course failed!");
+        }
     }
 
     @RequestMapping(value = "/admin/courses", method = RequestMethod.GET)
     public List<CourseDetailResponse> getAllCourses(){
-        return null;
+        CourseServiceImpl courseService = new CourseServiceImpl();
+        UserServiceImpl userService = new UserServiceImpl();
+        List<Course> courseList = courseService.list();
+        List<CourseDetailResponse> courseDetailList = null;
+        CourseDetailResponse courseDetail = null;
+        for(int i = 0; i < courseList.size(); i++){
+            Course course = courseList.get(i);
+            courseDetail.setId(course.getCourseID().toString());
+            courseDetail.setName(course.getCourseName());
+            courseDetail.setIntroduction(course.getIntroduction());
+            courseDetail.setTeacher(userService.getById(course.getTeacherID()).getUserName());
+            courseDetail.setEnd_time(course.getEndTime().toString());
+            courseDetail.setImage(course.getImgPath());
+            courseDetail.setIsAdd("true");
+        }
+        return courseDetailList;
     }
 
 }
