@@ -68,5 +68,9 @@ public interface UserMapper extends BaseMapper<User> {
     @Select("select grade from grades where programID = #{programID} and userID1 = #{userID1} and role = 1 ")
     List<Double> getStudentGrade(@Param("programID") int programID, @Param("userID1") String userID1);
 
+    @Select("select * from grades where programID = #{programID} and userID1 = #{userID1}")
+    Map selectFromGrades(@Param("programID") int programID,@Param("userID1") String userID1);
+
+
 
 }

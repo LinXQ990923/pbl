@@ -88,5 +88,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.getStudentGrade(programID,userID1);
     }
 
+    public Map selectFromGrades(int programID,String userID1){
+        return userMapper.selectFromGrades(programID,userID1);
+    }
+
 
 }

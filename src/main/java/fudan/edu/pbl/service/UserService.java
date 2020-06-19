@@ -47,4 +47,7 @@ public interface UserService extends IService<User> {
 
     List<Double> getStudentGrade(int programID, String userID1);
 
-    }
+    Map selectFromGrades(int programID,String userID1);
+
+
+}
