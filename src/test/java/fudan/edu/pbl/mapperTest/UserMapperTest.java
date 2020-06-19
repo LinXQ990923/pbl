@@ -160,7 +160,7 @@ public class UserMapperTest {
     public void test4(){
         System.out.println(userService.findFishedTask(1)==null);
         System.out.println(userService.findFishedTask(1).size());
-        
+
     }
 }
 

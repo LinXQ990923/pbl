@@ -33,6 +33,12 @@ public class Program implements Serializable {
     @TableField("endTime")
     private LocalDateTime endTime;
 
+    @TableField("teacherRatio")
+    private double teacherRatio;
+
+    @TableField("studentRatio")
+    private double studentRatio;
+
     @TableField("courseID")
     private Integer courseID;
 
@@ -122,5 +128,21 @@ public class Program implements Serializable {
 
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
+    }
+
+    public double getTeacherRatio() {
+        return teacherRatio;
+    }
+
+    public void setTeacherRatio(double teacherRatio) {
+        this.teacherRatio = teacherRatio;
+    }
+
+    public double getStudentRatio() {
+        return studentRatio;
+    }
+
+    public void setStudentRatio(double studentRatio) {
+        this.studentRatio = studentRatio;
     }
 }
