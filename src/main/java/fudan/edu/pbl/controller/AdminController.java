@@ -99,8 +99,9 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/student/delete", method = RequestMethod.GET)
     public ResultResponse deleteStudent(@RequestParam(value = "student_id", required = true) String id){
-        Boolean flag = userService.removeById(id);
+        boolean flag = userService.removeById(id);
         if(flag){
+            System.out.println("delete success");
             return new ResultResponse("true", "Delete student successfully!");
         }else{
             return new ResultResponse("false", "Delete student failed!");
@@ -138,9 +139,14 @@ public class AdminController {
         course.setTeacherID(request.getTeacher_id());
         course.setCourseName(request.getName());
         course.setIntroduction(request.getDescription());
-        course.setStartTime(LocalDateTime.parse(request.getStart_time()));
-        course.setEndTime(LocalDateTime.parse(request.getEnd_time()));
-        Boolean flag = courseService.save(course);
+        LocalDateTime start=LocalDateTime.now();
+        int year=Integer.parseInt(request.getEnd_time().split("-")[0]);
+        int month=Integer.parseInt(request.getEnd_time().split("-")[1]);
+        int day=Integer.parseInt(request.getEnd_time().split("-")[2]);
+        course.setStartTime(start);
+        course.setEndTime(LocalDateTime.of(year,month,day,start.getHour(),start.getMinute()));
+        course.setImgPath(request.getImage());
+        boolean flag = courseService.save(course);
         if(flag){
             return new ResultResponse("true", "Create Course successfully!");
         }else{
