@@ -59,6 +59,8 @@ CREATE TABLE IF NOT EXISTS Program (
   introduction VARCHAR(255) NOT NULL,
   startTime DATETIME NOT NULL,
   endTime DATETIME NOT NULL,
+  teacherRatio double(5,2),
+  studentRatio double(5,2),
   courseID INT(32) NOT NULL,
   gradePolicy VARCHAR(255) NOT NULL,
   hasDelete INT(1) DEFAULT 0,
@@ -143,7 +145,7 @@ INSERT INTO User VALUES ("test","test","test","test","test","test","test","/test
 INSERT INTO User VALUES ("test1","test","test","test","test","test","test","/test",1);
 INSERT INTO Admin VALUES ("admin","admin");
 INSERT INTO Course VALUES (null,"程序设计","programming","/test",now(),now(),0,"test1");
-INSERT INTO Program VALUES (null,"project","programming",now(),now(),1,"policy",0);
+INSERT INTO Program VALUES (null,"project","programming",now(),now(),0.6,0.4,1,"policy",0);
 INSERT INTO Task VALUES (null,"lab1","programming",now(),now(),1,0);
 INSERT INTO File VALUES (null,"testFile","./test",now(),"test",1);
 INSERT INTO Discussion VALUES (null,1);
