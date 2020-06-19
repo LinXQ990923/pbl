@@ -1,5 +1,5 @@
-CREATE SCHEMA pbl_db;
-USE pbl_db;
+CREATE SCHEMA pbl_db000;
+USE pbl_db000;
 
 DROP TABLE IF EXISTS User;
 CREATE TABLE IF NOT EXISTS User (
@@ -123,8 +123,6 @@ CREATE TABLE IF NOT EXISTS program_user
   programID INT(32) NOT NULL,
   userID VARCHAR(15) NOT NULL ,
   isLeader int(1) default 0,
-  grade double(5,2),
-  evaluation VARCHAR(500),
   PRIMARY KEY (programID,userID),
   FOREIGN KEY (programID) REFERENCES Program(programID),
   FOREIGN KEY (userID) REFERENCES User(userID)
@@ -139,6 +137,22 @@ CREATE TABLE IF NOT EXISTS task_user
   PRIMARY KEY (taskID,userID),
   FOREIGN KEY (taskID) REFERENCES task(taskID),
   FOREIGN KEY (userID) REFERENCES User(userID)
+)DEFAULT CHARACTER SET = utf8;
+
+DROP TABLE IF EXISTS grades;
+CREATE TABLE IF NOT EXISTS grades
+(
+  id INT(32) NOT NULL AUTO_INCREMENT,
+  programID  INT(32) NOT NULL,
+  userID1 VARCHAR(15) NOT NULL ,
+  userID2 VARCHAR(15) NOT NULL ,
+  role int(2) NOT NULL ,
+  grade double,
+  evaluation  VARCHAR(150),
+  PRIMARY KEY (id),
+  FOREIGN KEY (programID) REFERENCES Program(programID),
+  FOREIGN KEY (userID1) REFERENCES User(userID),
+  FOREIGN KEY (userID2) REFERENCES User(userID)
 )DEFAULT CHARACTER SET = utf8;
 
 INSERT INTO User VALUES ("test","test","test","test","test","test","test","/test",0);

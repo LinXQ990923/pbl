@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -15,20 +16,16 @@ import java.util.List;
  * @since 2020-06-12
  */
 public interface UserService extends IService<User> {
-    void grade( int programID, String userID,double score,String evaluation);
 
     void chooseCourse( int courseID,String studentID);
 
-    void chooseProgram( int programID,String studentID, int isLeader,int grade);
-
+    void chooseProgram( int programID,String studentID, int isLeader);
 
     HashMap ifChooseCourse(int courseID, String studentID);
-
 
     HashMap ifChooseProgram( int programID, String studentID);
 
     void fetchTask( int taskID, String userID);
-
 
     void finishTask( int taskID,String userID);
 
@@ -42,4 +39,12 @@ public interface UserService extends IService<User> {
 
     List<HashMap> findFishedTask(int id);
 
-}
+    void grade(int programID,String userID1,String userID2,int role,double grade,String evaluation);
+
+    double getTeacherGrade( int programID, String userID1);
+
+    Map checkIfGraded(int programID, String userID1, String userID2);
+
+    List<Double> getStudentGrade(int programID, String userID1);
+
+    }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import fudan.edu.pbl.entity.*;
+import fudan.edu.pbl.mapper.CommentMapper;
 import fudan.edu.pbl.mapper.CourseMapper;
 import fudan.edu.pbl.mapper.DiscussionMapper;
 import fudan.edu.pbl.mapper.UserMapper;
@@ -68,7 +69,7 @@ public class UserMapperTest {
         if(userMapper.ifChooseCourse(1,"test")==null)
         userMapper.chooseCourse(1,"test");
         if(userMapper.ifChooseProgram(1,"test")==null)
-        userMapper.chooseProgram(1,"test",0,0);
+        userMapper.chooseProgram(1,"test",0);
         Course course1=courseMapper.getCourseByIdWithStudent(1);
         System.out.println(course1.getUserList());
         Course course2 = courseMapper.getCourseByIdWithProgram(1);
@@ -121,10 +122,7 @@ public class UserMapperTest {
             System.out.println(comment.getContent());
         }
     }
-    @Test
-    public void testGrade(){
-        userService.grade(1,"test",88.85,"very good");
-    }
+
     @Test
     public void testSelect(){
         List<HashMap> map=userMapper.selectFromTaskUser("test");
@@ -152,7 +150,7 @@ public class UserMapperTest {
     public void test3(){
         System.out.println(userService.ifChooseCourse(6,"test"));
         System.out.println(userService.ifChooseCourse(1,"test") );
-        userService.grade(1,"test",66.66,"bang");
+
         System.out.println(userService.ifChooseProgram(1,"test"));
     }
 
@@ -162,6 +160,18 @@ public class UserMapperTest {
         System.out.println(userService.findFishedTask(1).size());
 
     }
+    @Autowired
+    CommentMapper commentMapper;
+    @Test
+    public void testGrade(){
+        //userService.grade(1,"test","test1",2,66.6,"good");
+        System.out.println(userMapper.getTeacherGrade(1,"test"));
+        System.out.println(userMapper.checkIfGraded(1,"test1","test1"));
+        System.out.println(userMapper.getStudentGrade(1,"test"));
+        System.out.println(commentMapper.getCommentsByStudent("test"));
+    }
+
+
 }
 
 
