@@ -122,6 +122,7 @@ CREATE TABLE IF NOT EXISTS program_user
   userID VARCHAR(15) NOT NULL ,
   isLeader int(1) default 0,
   grade double(5,2),
+  evaluation VARCHAR(500),
   PRIMARY KEY (programID,userID),
   FOREIGN KEY (programID) REFERENCES Program(programID),
   FOREIGN KEY (userID) REFERENCES User(userID)

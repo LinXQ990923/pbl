@@ -65,9 +65,9 @@ public class UserMapperTest {
 
         User user=userService.getById("test");
 
-        if(userMapper.ifChooseCourse(1,"test")==0)
+        if(userMapper.ifChooseCourse(1,"test")==null)
         userMapper.chooseCourse(1,"test");
-        if(userMapper.ifChooseProgram(1,"test")==0)
+        if(userMapper.ifChooseProgram(1,"test")==null)
         userMapper.chooseProgram(1,"test",0,0);
         Course course1=courseMapper.getCourseByIdWithStudent(1);
         System.out.println(course1.getUserList());
@@ -123,7 +123,7 @@ public class UserMapperTest {
     }
     @Test
     public void testGrade(){
-        userService.grade(1,"test",88.85);
+        userService.grade(1,"test",88.85,"very good");
     }
     @Test
     public void testSelect(){
@@ -148,7 +148,20 @@ public class UserMapperTest {
     }
     @Autowired
     DiscussionService discussionService;
+    @Test
+    public void test3(){
+        System.out.println(userService.ifChooseCourse(6,"test"));
+        System.out.println(userService.ifChooseCourse(1,"test") );
+        userService.grade(1,"test",66.66,"bang");
+        System.out.println(userService.ifChooseProgram(1,"test"));
+    }
 
+    @Test
+    public void test4(){
+        System.out.println(userService.findFishedTask(1)==null);
+        System.out.println(userService.findFishedTask(1).size());
+        
+    }
 }
 
 

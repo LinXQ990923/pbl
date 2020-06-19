@@ -22,8 +22,8 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
     UserMapper userMapper;
-    public void grade( int programID, String userID,double score){
-        userMapper.grade(programID,userID,score);
+    public void grade( int programID, String userID,double score,String evaluation){
+        userMapper.grade(programID,userID,score,evaluation);
     }
 
     public void chooseCourse( int courseID,String studentID){
@@ -35,12 +35,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
 
-    public int ifChooseCourse(int courseID, String studentID){
+    public HashMap<String, Object> ifChooseCourse(int courseID, String studentID){
         return userMapper.ifChooseCourse(courseID, studentID);
     }
 
 
-    public int ifChooseProgram( int programID, String studentID){
+    public HashMap<String, Object> ifChooseProgram(int programID, String studentID){
         return userMapper.ifChooseProgram(programID, studentID);
     }
 
@@ -63,5 +63,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     public User getByIdWithProperties(String id){
         return userMapper.getByIdWithProperties(id);
+    }
+
+    public List<HashMap> findUnfishedTask(int id){
+        return userMapper.findUnfishedTask(id);
+    }
+
+    public List<HashMap> findFishedTask(int id){
+        return userMapper.findFishedTask(id);
     }
 }

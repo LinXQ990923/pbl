@@ -15,17 +15,17 @@ import java.util.List;
  * @since 2020-06-12
  */
 public interface UserService extends IService<User> {
-    void grade( int programID, String userID,double score);
+    void grade( int programID, String userID,double score,String evaluation);
 
     void chooseCourse( int courseID,String studentID);
 
     void chooseProgram( int programID,String studentID, int isLeader,int grade);
 
 
-    int ifChooseCourse(int courseID, String studentID);
+    HashMap ifChooseCourse(int courseID, String studentID);
 
 
-    int ifChooseProgram( int programID, String studentID);
+    HashMap ifChooseProgram( int programID, String studentID);
 
     void fetchTask( int taskID, String userID);
 
@@ -37,5 +37,9 @@ public interface UserService extends IService<User> {
     List<HashMap> selectFromProgramUser (String id);
 
     User getByIdWithProperties(String id);
+
+    List<HashMap> findUnfishedTask(int id);
+
+    List<HashMap> findFishedTask(int id);
 
 }

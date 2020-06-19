@@ -29,11 +29,11 @@ public interface UserMapper extends BaseMapper<User> {
     @Insert("insert into program_user values(#{programID},#{userID},#{isLeader},#{grade})")
     void chooseProgram(@Param("programID") int programID,@Param("userID")String studentID,@Param("isLeader") int isLeader,@Param("grade")int grade);
 
-    @Select("select count(*) from course_user cu where cu.courseID = #{courseID} and cu.userID = #{userID} ")
-    int ifChooseCourse(@Param("courseID") int courseID, @Param("userID")String studentID);
+    @Select("select * from course_user cu where cu.courseID = #{courseID} and cu.userID = #{userID} ")
+    HashMap<String,Object> ifChooseCourse(@Param("courseID") int courseID, @Param("userID")String studentID);
 
-    @Select("select count(*) from program_user pu where pu.programID = #{programID} and pu.userID = #{userID}")
-    int ifChooseProgram(@Param("programID") int programID, @Param("userID")String studentID);
+    @Select("select * from program_user pu where pu.programID = #{programID} and pu.userID = #{userID}")
+    HashMap<String,Object> ifChooseProgram(@Param("programID") int programID, @Param("userID")String studentID);
 
     @Insert("insert into task_user values (#{taskID},#{userID},0)")
     void fetchTask(@Param("taskID") int taskID,@Param("userID") String userID);
@@ -41,8 +41,8 @@ public interface UserMapper extends BaseMapper<User> {
     @Update("update task_user tu set isFinish = 1 where tu.taskID=#{taskID} and tu.userID= #{userID} ")
     void finishTask(@Param("taskID") int taskID,@Param("userID")String userID);
 
-    @Update("update program_user pu set grade = #{score} where pu.programID and pu.userID = #{userID}")
-    void grade(@Param("programID") int programID,@Param("userID") String userID,@Param("score") double score);
+    @Update("update program_user pu set grade = #{score} and evaluation = #{evaluation}  where pu.programID and pu.userID = #{userID}")
+    void grade(@Param("programID") int programID,@Param("userID") String userID,@Param("score") double score,@Param("evaluation") String evaluation);
 
     @Select("select * from task_user where userID = #{id}")
     List<HashMap> selectFromTaskUser (String id);
@@ -51,4 +51,12 @@ public interface UserMapper extends BaseMapper<User> {
     List<HashMap> selectFromProgramUser (String id);
 
     User getByIdWithProperties(String id);
+
+    @Select("select * from task_user where taskID = #{id} and isFinish = 1")
+    List<HashMap> findFishedTask(int id);
+
+    @Select("select * from task_user where taskID = #{id} and isFinish = 0")
+    List<HashMap> findUnfishedTask(int id);
+
+
 }
