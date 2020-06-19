@@ -11,12 +11,9 @@ import fudan.edu.pbl.service.impl.DiscussionServiceImpl;
 import fudan.edu.pbl.service.impl.ProgramServiceImpl;
 import fudan.edu.pbl.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -66,7 +63,7 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/course/project/comment/add", method = RequestMethod.POST)
-    public ResultResponse addComment(@RequestParam AddCommentRequest request, HttpSession session){
+    public ResultResponse addComment(@RequestBody AddCommentRequest request, HttpSession session){
         Comment comment = new Comment();
         comment.setContent(request.getContent());
         comment.setReplyID(Integer.parseInt(request.getReply()));
