@@ -4,6 +4,7 @@ import {NzModalService} from "ng-zorro-antd";
 import {Router} from "@angular/router";
 import {StudentService} from "../../../service/student.service";
 import {Observable, Observer} from "rxjs";
+import {Md5} from "ts-md5";
 
 @Component({
   selector: 'app-student-update-password',
@@ -76,8 +77,8 @@ export class StudentUpdatePasswordComponent implements OnInit {
   submitForm():void{
     if (this.validateForm.valid) {
       this.student.updatePassword({
-        oldPassword: this.validateForm.value.oldpassword,
-        newPassword: this.validateForm.value.password
+        oldPassword: Md5.hashStr(this.validateForm.value.oldpassword),
+        newPassword: Md5.hashStr(this.validateForm.value.password)
       }).subscribe(result => {
         if (result.status == "true") {
           this.modal.success({

@@ -28,16 +28,34 @@ export class ProjectFileAreaComponent implements OnInit {
     })
   }
 
-  handleChange({ file, fileList }: UploadChangeParam): void {
+  handleChange({ file }: UploadChangeParam): void {
     const status = file.status;
     if (status !== 'uploading') {
-      console.log(file, fileList);
+      console.log(file);
     }
     if (status === 'done') {
       this.msg.success(`${file.name} file uploaded successfully.`);
+      location.reload();
     } else if (status === 'error') {
       this.msg.error(`${file.name} file upload failed.`);
     }
   }
 
+  download(path):void{
+    this.project.downloadFile("path").subscribe(res=>{
+      alert(res.status);
+    });
+  }
+
+  delete(id):void{
+    this.project.deleteFile(id).subscribe(res=>{
+      if (res.status=="true"){
+        this.msg.create("success","删除成功");
+        location.reload();
+      }else {
+        this.msg.create("error","删除失败");
+      }
+    })
+
+  }
 }

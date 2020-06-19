@@ -77,7 +77,7 @@ export class AdminLoginComponent implements OnInit {
     }).subscribe(result => {
       if(result.status === "true"){
         /* 导航到首页 */
-        this.router.navigate(['/','auth','teacher','signup']);
+        this.router.navigate(['/','admin','students']);
       }
       else{
         this.modal.error({

@@ -7,7 +7,8 @@
   <h4>文件上传</h4>
   <nz-upload
     nzType="drag"
-    nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+    nzAction="file/area/upload"
+    nzName="upload_file"
     (nzChange)="handleChange($event)">
     <p class="ant-upload-drag-icon">
       <i nz-icon nzType="inbox"></i>
@@ -29,10 +30,10 @@
       上传人：{{item.uploader}}
       <ul nz-list-item-actions>
         <nz-list-item-action>
-          <button nz-button nzType="primary" nzOrientation="right" class="right">下载</button>
+          <button nz-button nzType="primary" nzOrientation="right" class="right" [routerLink]="['/up','e09bdd48e.png']">查看</button>
         </nz-list-item-action>
         <nz-list-item-action>
-          <button nz-button *ngIf="item.delete=='true'" nzType="primary" nzOrientation="right" class="right">删除</button>
+          <button nz-button *ngIf="item.delete=='true'" nzType="primary" nzOrientation="right" class="right" (click)="delete(item.id)">删除</button>
         </nz-list-item-action>
       </ul>
     </nz-list-item>

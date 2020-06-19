@@ -39,6 +39,20 @@
         </nz-radio-group>
       </nz-form-control>
     </nz-form-item>
+    <nz-form-item *ngIf="validateForm.value.radioValue=='true'">
+      <nz-form-label [nzSpan]="7" nzRequired>老师评分占比（单位：%）</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="proportionErrorTpl">
+        <input nz-input formControlName="teacherProportion" type="number"/>
+        <ng-template #proportionErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('less')">
+            老师占比不能小于40%
+          </ng-container>
+          <ng-container *ngIf="control.hasError('more')">
+            老师占比不能大于100%
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>项目结束日期</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="dateErrorTpl">
