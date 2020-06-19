@@ -131,7 +131,7 @@ export class AuthService {
 
   createCourse(data):Observable<Result>{
     // let url = this.createCourseUrl;
-    // return this.http.get<Result>(url).pipe();
+    // return this.http.post<Result>(url,data,httpOptions).pipe();
 
     let url = "/assets/data/success.json";
     return this.http.get<Result>(url).pipe();
