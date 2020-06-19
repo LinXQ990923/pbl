@@ -1,17 +1,19 @@
 package fudan.edu.pbl.response;
 
+import java.util.List;
+
 public class TaskFinishResponse {
 
     private String id;//任务id
     private String name;//任务名
-    private String finished;//已完成的组员名字
-    private String not_finished;
+    private List<String> finished;//已完成的组员名字
+    private List<String> not_finished;
 
     public TaskFinishResponse(){
 
     }
 
-    public TaskFinishResponse(String id, String name, String finished, String not_finished) {
+    public TaskFinishResponse(String id, String name, List<String> finished, List<String> not_finished) {
         this.id = id;
         this.name = name;
         this.finished = finished;
@@ -34,19 +36,19 @@ public class TaskFinishResponse {
         this.name = name;
     }
 
-    public String getFinished() {
+    public List<String> getFinished() {
         return finished;
     }
 
-    public void setFinished(String finished) {
+    public void setFinished(List<String> finished) {
         this.finished = finished;
     }
 
-    public String getNot_finished() {
+    public List<String> getNot_finished() {
         return not_finished;
     }
 
-    public void setNot_finished(String not_finished) {
+    public void setNot_finished(List<String> not_finished) {
         this.not_finished = not_finished;
     }
 }

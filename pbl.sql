@@ -59,6 +59,8 @@ CREATE TABLE IF NOT EXISTS Program (
   introduction VARCHAR(255) NOT NULL,
   startTime DATETIME NOT NULL,
   endTime DATETIME NOT NULL,
+  teacherRatio double(5,2),
+  studentRatio double(5,2),
   courseID INT(32) NOT NULL,
   gradePolicy VARCHAR(255) NOT NULL,
   hasDelete INT(1) DEFAULT 0,
@@ -121,7 +123,6 @@ CREATE TABLE IF NOT EXISTS program_user
   programID INT(32) NOT NULL,
   userID VARCHAR(15) NOT NULL ,
   isLeader int(1) default 0,
-  grade double(5,2),
   PRIMARY KEY (programID,userID),
   FOREIGN KEY (programID) REFERENCES Program(programID),
   FOREIGN KEY (userID) REFERENCES User(userID)
@@ -138,11 +139,27 @@ CREATE TABLE IF NOT EXISTS task_user
   FOREIGN KEY (userID) REFERENCES User(userID)
 )DEFAULT CHARACTER SET = utf8;
 
+DROP TABLE IF EXISTS grades;
+CREATE TABLE IF NOT EXISTS grades
+(
+  id INT(32) NOT NULL AUTO_INCREMENT,
+  programID  INT(32) NOT NULL,
+  userID1 VARCHAR(15) NOT NULL ,
+  userID2 VARCHAR(15) NOT NULL ,
+  role int(2) NOT NULL ,
+  grade double,
+  evaluation  VARCHAR(150),
+  PRIMARY KEY (id),
+  FOREIGN KEY (programID) REFERENCES Program(programID),
+  FOREIGN KEY (userID1) REFERENCES User(userID),
+  FOREIGN KEY (userID2) REFERENCES User(userID)
+)DEFAULT CHARACTER SET = utf8;
+
 INSERT INTO User VALUES ("test","test","test","test","test","test","test","/test",0);
 INSERT INTO User VALUES ("test1","test","test","test","test","test","test","/test",1);
 INSERT INTO Admin VALUES ("admin","admin");
 INSERT INTO Course VALUES (null,"程序设计","programming","/test",now(),now(),0,"test1");
-INSERT INTO Program VALUES (null,"project","programming",now(),now(),1,"policy",0);
+INSERT INTO Program VALUES (null,"project","programming",now(),now(),0.6,0.4,1,"policy",0);
 INSERT INTO Task VALUES (null,"lab1","programming",now(),now(),1,0);
 INSERT INTO File VALUES (null,"testFile","./test",now(),"test",1);
 INSERT INTO Discussion VALUES (null,1);

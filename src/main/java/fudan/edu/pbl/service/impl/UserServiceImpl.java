@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -22,25 +23,23 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
     UserMapper userMapper;
-    public void grade( int programID, String userID,double score){
-        userMapper.grade(programID,userID,score);
-    }
+
 
     public void chooseCourse( int courseID,String studentID){
         userMapper.chooseCourse(courseID,studentID);
     }
 
-    public void chooseProgram( int programID,String studentID, int isLeader,int grade){
-        userMapper.chooseProgram(programID, studentID, isLeader, grade);
+    public void chooseProgram( int programID,String studentID, int isLeader){
+        userMapper.chooseProgram(programID, studentID, isLeader);
     }
 
 
-    public int ifChooseCourse(int courseID, String studentID){
+    public HashMap<String, Object> ifChooseCourse(int courseID, String studentID){
         return userMapper.ifChooseCourse(courseID, studentID);
     }
 
 
-    public int ifChooseProgram( int programID, String studentID){
+    public HashMap<String, Object> ifChooseProgram(int programID, String studentID){
         return userMapper.ifChooseProgram(programID, studentID);
     }
 
@@ -64,4 +63,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public User getByIdWithProperties(String id){
         return userMapper.getByIdWithProperties(id);
     }
+
+    public List<HashMap> findUnfishedTask(int id){
+        return userMapper.findUnfishedTask(id);
+    }
+
+    public List<HashMap> findFishedTask(int id){
+        return userMapper.findFishedTask(id);
+    }
+
+    public void grade(int programID,String userID1,String userID2,int role,double grade,String evaluation){
+        userMapper.grade(programID,userID1,userID2,role,grade,evaluation);
+    }
+
+    public double getTeacherGrade(int programID, String userID1){
+        return userMapper.getTeacherGrade(programID,userID1);
+    }
+
+    public Map checkIfGraded(int programID, String userID1, String userID2){
+        return userMapper.checkIfGraded(programID,userID1,userID2);
+    }
+
+    public List<Double> getStudentGrade(int programID, String userID1){
+        return userMapper.getStudentGrade(programID,userID1);
+    }
+
+
 }

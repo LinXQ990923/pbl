@@ -6,6 +6,7 @@ import fudan.edu.pbl.entity.Course;
 import fudan.edu.pbl.entity.User;
 import fudan.edu.pbl.request.CreateCourseRequest;
 import fudan.edu.pbl.request.LoginAsAdminRequest;
+import fudan.edu.pbl.request.SignUpAsStudentRequest;
 import fudan.edu.pbl.response.CourseDetailResponse;
 import fudan.edu.pbl.response.ResultResponse;
 import fudan.edu.pbl.response.StudentResponse;
@@ -43,6 +44,28 @@ public class AdminController {
     @Autowired AdminServiceImpl adminService;
     @Autowired UserServiceImpl userService;
     @Autowired CourseServiceImpl courseService;
+
+    @RequestMapping(value = "/teacher/signup", method = RequestMethod.POST)
+    public ResultResponse studentSignup(@RequestBody SignUpAsStudentRequest request, HttpSession session){
+        User teacher = userService.getById(request.getId());
+        if(teacher != null){
+            return new ResultResponse("false", "用户名已存在，注册失败");
+        }else{
+            User user = new User();
+            user.setUserID(request.getId());
+            user.setPassword(request.getPassword());
+            user.setEmail(request.getEmail());
+            user.setUserName(request.getName());
+            user.setRole(1);
+            Boolean flag = userService.save(user);
+            if(flag){
+                session.setAttribute("id", request.getId());
+                return new ResultResponse("true", "注册成功");
+            }else{
+                return new ResultResponse("false", "数据库出错");
+            }
+        }
+    }
 
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public ResultResponse adminLogin(@RequestBody LoginAsAdminRequest request, HttpSession session){

@@ -11,12 +11,9 @@ import fudan.edu.pbl.service.CourseService;
 import fudan.edu.pbl.service.impl.CourseServiceImpl;
 import fudan.edu.pbl.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
 
 import javax.servlet.http.HttpSession;
@@ -55,7 +52,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/user/mycourses", method = RequestMethod.GET)
-    public List<CourseResponse> getMyCourses(@RequestParam HttpSession session){
+    public List<CourseResponse> getMyCourses(HttpSession session){
         User user = userService.getByIdWithProperties(session.getAttribute("id").toString());
         List<Course> courseList = user.getCourseList();
         List<CourseResponse> coursesList = new ArrayList<>();
@@ -74,9 +71,13 @@ public class CourseController {
     @RequestMapping(value = "/course/detail", method = RequestMethod.GET)
     public CourseDetailResponse getCourseDetail(@RequestParam(value = "course_id", required = true) String id){
         Course course = courseService.getById(id);
-        return new CourseDetailResponse(course.getCourseID().toString(), course.getCourseName(),
-                course.getIntroduction(), userService.getById(course.getTeacherID()).getUserName(),
-                course.getEndTime().toString(), course.getImgPath(), "false");
+        if(course != null){
+            return new CourseDetailResponse(course.getCourseID().toString(), course.getCourseName(),
+                    course.getIntroduction(), userService.getById(course.getTeacherID()).getUserName(),
+                    course.getEndTime().toString(), course.getImgPath(), "false");
+        }else{
+            return null;
+        }
     }
 
     @RequestMapping(value = "/course/add", method = RequestMethod.GET)
@@ -86,7 +87,7 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/course/create", method = RequestMethod.GET)
-    public ResultResponse createCourse(@RequestParam CreateCourseRequest request){
+    public ResultResponse createCourse(@RequestBody CreateCourseRequest request){
         Course course = new Course();
         course.setTeacherID(request.getTeacher_id());
         course.setCourseName(request.getName());
