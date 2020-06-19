@@ -6,6 +6,7 @@ import fudan.edu.pbl.request.SignUpAsStudentRequest;
 import fudan.edu.pbl.response.ResultResponse;
 import fudan.edu.pbl.response.StudentResponse;
 import fudan.edu.pbl.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,11 +16,11 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 public class StudentController {
+    @Autowired UserServiceImpl studentService;
 
     @RequestMapping(value = "/student/login", method = RequestMethod.POST)
     public ResultResponse studentLogin(@RequestBody LoginAsStudentRequest request, HttpSession session){
-        UserServiceImpl studentloginService = new UserServiceImpl();
-        User student = studentloginService.getById(request.getId());
+        User student = studentService.getById(request.getId());
         if(student != null){
             if(student.getPassword().equals(request.getPassword())){
                 session.setAttribute("id",request.getId());
@@ -35,12 +36,21 @@ public class StudentController {
 
     @RequestMapping(value = "/student/signup", method = RequestMethod.POST)
     public ResultResponse studentSignup(@RequestBody SignUpAsStudentRequest request, HttpSession session){
-        UserServiceImpl studentsignupService = new UserServiceImpl();
-        User student = studentsignupService.getById(request.getId());
+        User student = studentService.getById(request.getId());
         if(student != null){
             return new ResultResponse("false","用户名已存在,注册失败");
         }else {
-            return new ResultResponse("true","注册成功");
+            User user=new User();
+            user.setUserID(request.getId());
+            user.setPassword(request.getPassword());
+            user.setEmail(request.getEmail());
+            user.setUserName(request.getName());
+            if (studentService.save(user)){
+                session.setAttribute("id",request.getId());
+                return new ResultResponse("true","注册成功");
+            }else {
+                return new ResultResponse("false","数据库出错");
+            }
         }
     }
 
