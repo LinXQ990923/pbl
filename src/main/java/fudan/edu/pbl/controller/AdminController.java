@@ -1,16 +1,27 @@
 package fudan.edu.pbl.controller;
 
 
+import fudan.edu.pbl.entity.Admin;
+import fudan.edu.pbl.entity.Course;
+import fudan.edu.pbl.entity.User;
+import fudan.edu.pbl.request.CreateCourseRequest;
+import fudan.edu.pbl.request.LoginAsAdminRequest;
 import fudan.edu.pbl.response.CourseDetailResponse;
 import fudan.edu.pbl.response.ResultResponse;
 import fudan.edu.pbl.response.StudentResponse;
 import fudan.edu.pbl.response.TeacherResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
+import fudan.edu.pbl.service.AdminService;
+import fudan.edu.pbl.service.FileService;
+import fudan.edu.pbl.service.UserService;
+import fudan.edu.pbl.service.impl.AdminServiceImpl;
+import fudan.edu.pbl.service.impl.CourseServiceImpl;
+import fudan.edu.pbl.service.impl.FileServiceImpl;
+import fudan.edu.pbl.service.impl.UserServiceImpl;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -26,32 +37,82 @@ import java.util.List;
 public class AdminController {
 
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
-    public ResultResponse adminLogin(){
-        return null;
+    public ResultResponse adminLogin(@RequestBody LoginAsAdminRequest request, HttpSession session){
+        AdminServiceImpl adminService = new AdminServiceImpl();
+        Admin admin = adminService.getById(request.getId());
+        if(admin != null){
+            if(admin.getPassword().equals(request.getPassword())){
+                session.setAttribute("id", request.getId());
+                session.setAttribute("role", "admin");
+                return new ResultResponse("true", "Admin login successfully!");
+            }else{
+                return new ResultResponse("false", "Password error. Login failed!");
+            }
+        }else{
+            return new ResultResponse("false", "Admin doesn't exist!");
+        }
     }
 
     @RequestMapping(value = "/admin/students", method = RequestMethod.GET)
     public List<StudentResponse> getAllStudent(){
-        return null;
+        UserServiceImpl userService = new UserServiceImpl();
+        List<StudentResponse> studentList = null;
+        List<User> userList = userService.list();
+        for(int i = 0; i < userList.size(); i++){
+            User user = userList.get(i);
+            if(user.getRole() == 0){
+                studentList.add(new StudentResponse(
+                        user.getUserID(), user.getUserName(), user.getSchool(), user.getDepartment(),
+                        user.getEmail(), user.getPhone(), user.getImgID().toString()));
+            }
+        }
+        return studentList;
     }
 
     @RequestMapping(value = "/admin/student/delete", method = RequestMethod.GET)
-    public ResultResponse deleteStudent(){
-        return null;
+    public ResultResponse deleteStudent(@RequestParam(value = "student_id", required = true) String id){
+        UserServiceImpl userService = new UserServiceImpl();
+        Boolean flag = userService.removeById(id);
+        if(flag){
+            return new ResultResponse("true", "Delete student successfully!");
+        }else{
+            return new ResultResponse("false", "Delete student failed!");
+        }
     }
 
     @RequestMapping(value = "/admin/teachers", method = RequestMethod.GET)
     public List<TeacherResponse> getAllTeacher(){
-        return null;
+        UserServiceImpl userService = new UserServiceImpl();
+        FileServiceImpl fileService = new FileServiceImpl();
+        List<TeacherResponse> teacherList = null;
+        List<User> userList = userService.list();
+        for(int i = 0; i < userList.size(); i++){
+            User user = userList.get(i);
+            if(user.getRole() == 1){
+                teacherList.add(new TeacherResponse(
+                        user.getUserID(), user.getUserName(), user.getSchool(), user.getDepartment(),
+                        user.getEmail(), user.getPhone(), fileService.getById(user.getImgID()).getFilePath()));
+            }
+        }
+        return teacherList;
     }
 
     @RequestMapping(value = "/admin/teacher/delete", method = RequestMethod.GET)
-    public ResultResponse deleteTeacher(){
-        return null;
+    public ResultResponse deleteTeacher(@RequestParam(value = "teacher_id", required = true) String id){
+        UserServiceImpl userService = new UserServiceImpl();
+        Boolean flag = userService.removeById(id);
+        if(flag){
+            return new ResultResponse("true", "Delete teacher successfully!");
+        }else{
+            return new ResultResponse("false", "Delete teacher failed!");
+        }
     }
 
-    @RequestMapping(value = "/admin/course/create", method = RequestMethod.GET)
-    public ResultResponse createCourse(){
+    @RequestMapping(value = "/admin/course/create", method = RequestMethod.POST)
+    public ResultResponse createCourse(@RequestBody CreateCourseRequest request){
+        CourseServiceImpl courseService = new CourseServiceImpl();
+        Course course = new Course();
+        //course.
         return null;
     }
 
