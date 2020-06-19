@@ -49,7 +49,6 @@ public class AdminController {
         if(admin != null){
             if(admin.getPassword().equals(request.getPassword())){
                 session.setAttribute("id", request.getId());
-                session.setAttribute("role", "admin");
                 return new ResultResponse("true", "Admin login successfully!");
             }else{
                 return new ResultResponse("false", "Password error. Login failed!");
@@ -130,9 +129,9 @@ public class AdminController {
     public List<CourseDetailResponse> getAllCourses(){
         List<Course> courseList = courseService.list();
         List<CourseDetailResponse> courseDetailList = null;
-        CourseDetailResponse courseDetail = null;
         for(int i = 0; i < courseList.size(); i++){
             Course course = courseList.get(i);
+            CourseDetailResponse courseDetail = null;
             courseDetail.setId(course.getCourseID().toString());
             courseDetail.setName(course.getCourseName());
             courseDetail.setIntroduction(course.getIntroduction());
@@ -140,6 +139,7 @@ public class AdminController {
             courseDetail.setEnd_time(course.getEndTime().toString());
             courseDetail.setImage(course.getImgPath());
             courseDetail.setIsAdd("true");
+            courseDetailList.add(courseDetail);
         }
         return courseDetailList;
     }
