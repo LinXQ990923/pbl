@@ -60,4 +60,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public List<HashMap> selectFromProgramUser (String id){
         return userMapper.selectFromProgramUser(id);
     }
+
+    public User getByIdWithProperties(String id){
+        return userMapper.getByIdWithProperties(id);
+    }
 }

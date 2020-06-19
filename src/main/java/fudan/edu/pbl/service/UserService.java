@@ -36,4 +36,6 @@ public interface UserService extends IService<User> {
 
     List<HashMap> selectFromProgramUser (String id);
 
+    User getByIdWithProperties(String id);
+
 }

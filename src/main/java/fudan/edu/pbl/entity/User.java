@@ -3,6 +3,7 @@ package fudan.edu.pbl.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -36,6 +37,13 @@ public class User implements Serializable {
     private String imgPath;
 
     private Integer role;
+
+    @TableField(exist = false)
+    private List<Course> courseList;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public String getUserID() {
         return userID;
@@ -116,5 +124,13 @@ public class User implements Serializable {
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
     }
 }

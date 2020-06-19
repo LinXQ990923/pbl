@@ -49,4 +49,6 @@ public interface UserMapper extends BaseMapper<User> {
 
     @Select("select * from program_user where userID = #{id}")
     List<HashMap> selectFromProgramUser (String id);
+
+    User getByIdWithProperties(String id);
 }

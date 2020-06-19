@@ -25,6 +25,20 @@
         </if>
     </insert>
 
+    <resultMap id="Map1" type="fudan.edu.pbl.entity.User" autoMapping="true">
+        <id column="userID" property="userID"/>
+        <!--association:完成子对象的映射-->
+        <!--property:子对象在父对象中的属性名-->
+        <!--javaType:子对象的java类型-->
+        <!--autoMapping:完成子对象的自动映射，若开启驼峰，则按驼峰匹配-->
+        <collection property="courseList" javaType="List" ofType="fudan.edu.pbl.entity.Course" autoMapping="true">
+            <id column="courseID" property="courseID"/>
+        </collection>
+    </resultMap>
+
+    <select id="getByIdWithProperties" resultMap="Map1">
+        select * from user u left join course_user cu on u.userID=cu.userID left join course c on cu.courseID = c.courseID where u.userID = #{id}
+    </select>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">

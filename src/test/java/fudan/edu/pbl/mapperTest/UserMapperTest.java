@@ -11,6 +11,7 @@ import fudan.edu.pbl.service.CourseService;
 import fudan.edu.pbl.service.FileService;
 import fudan.edu.pbl.service.TaskService;
 import fudan.edu.pbl.service.UserService;
+import fudan.edu.pbl.service.impl.UserServiceImpl;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -100,6 +101,11 @@ public class UserMapperTest {
             System.out.println(file.getFileName());
         }
     }
+    @Test
+    public void test(){
+        UserServiceImpl impl = new UserServiceImpl();
+        impl.getById("test");
+    }
 
     @Test
     public void testUpdate(){
@@ -140,6 +146,7 @@ public class UserMapperTest {
 //            System.out.println(program.getTaskList());
 //        }
         System.out.println(courseService.getCourseByIdWithProgram(1));
+        System.out.println(userService.getByIdWithProperties("test"));
     }
 
 }
