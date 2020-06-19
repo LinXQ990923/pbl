@@ -110,7 +110,6 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/course/create", method = RequestMethod.POST)
     public ResultResponse createCourse(@RequestBody CreateCourseRequest request){
-        CourseServiceImpl courseService = new CourseServiceImpl();
         Course course = new Course();
         course.setTeacherID(request.getTeacher_id());
         course.setCourseName(request.getName());
