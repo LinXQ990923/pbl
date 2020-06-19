@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface DiscussionService extends IService<Discussion> {
     Discussion getDiscussionByIdWithComment(int id);
+    Discussion getByProgramID(int id);
 }

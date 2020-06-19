@@ -7,10 +7,7 @@ import fudan.edu.pbl.entity.*;
 import fudan.edu.pbl.mapper.CourseMapper;
 import fudan.edu.pbl.mapper.DiscussionMapper;
 import fudan.edu.pbl.mapper.UserMapper;
-import fudan.edu.pbl.service.CourseService;
-import fudan.edu.pbl.service.FileService;
-import fudan.edu.pbl.service.TaskService;
-import fudan.edu.pbl.service.UserService;
+import fudan.edu.pbl.service.*;
 import fudan.edu.pbl.service.impl.UserServiceImpl;
 import org.junit.After;
 import org.junit.Before;
@@ -147,7 +144,10 @@ public class UserMapperTest {
 //        }
         System.out.println(courseService.getCourseByIdWithProgram(1));
         System.out.println(userService.getByIdWithProperties("test"));
+        System.out.println(discussionService.getByProgramID(1));
     }
+    @Autowired
+    DiscussionService discussionService;
 
 }
 

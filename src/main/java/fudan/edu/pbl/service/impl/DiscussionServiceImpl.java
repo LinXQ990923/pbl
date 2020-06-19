@@ -22,4 +22,8 @@ public class DiscussionServiceImpl extends ServiceImpl<DiscussionMapper, Discuss
     public Discussion getDiscussionByIdWithComment(int id){
         return discussionMapper.getDiscussionByIdWithComment(id);
     }
+
+    public Discussion getByProgramID(int id){
+        return discussionMapper.getByProgramID(id);
+    }
 }
