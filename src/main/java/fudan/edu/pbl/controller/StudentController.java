@@ -3,6 +3,8 @@ package fudan.edu.pbl.controller;
 import fudan.edu.pbl.entity.User;
 import fudan.edu.pbl.request.LoginAsStudentRequest;
 import fudan.edu.pbl.request.SignUpAsStudentRequest;
+import fudan.edu.pbl.request.UpdateInfoRequest;
+import fudan.edu.pbl.request.UpdatePasswordRequest;
 import fudan.edu.pbl.response.ResultResponse;
 import fudan.edu.pbl.response.StudentResponse;
 import fudan.edu.pbl.service.impl.UserServiceImpl;
@@ -22,16 +24,20 @@ public class StudentController {
     public ResultResponse studentLogin(@RequestBody LoginAsStudentRequest request, HttpSession session){
         User student = studentService.getById(request.getId());
         if(student != null){
-            if(student.getPassword().equals(request.getPassword())){
-                session.setAttribute("id",request.getId());
-                session.setAttribute("password",request.getPassword());
-                return new ResultResponse("true","登录成功");
+            if(student.getRole() == 1){
+                if(student.getPassword().equals(request.getPassword())){
+                    session.setAttribute("id",request.getId());
+                    return new ResultResponse("true","登录成功");
+                }else {
+                    return new ResultResponse("false","密码或用户名错误");
+                }
             }else {
-                return new ResultResponse("false","密码或用户名错误");
+                return new ResultResponse("false","用户名不存在");
             }
         }else {
-            return new ResultResponse("false","用户名不存在");
+            return new ResultResponse("false","该用户不是学生！");
         }
+
     }
 
     @RequestMapping(value = "/student/signup", method = RequestMethod.POST)
@@ -55,23 +61,46 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/student/info", method = RequestMethod.GET)
-    public StudentResponse getInfo(){
-        return null;
+    public StudentResponse getInfo(HttpSession session){
+
+        User student = studentService.getById(session.getAttribute("id").toString());
+        return new StudentResponse(student.getUserID(),student.getUserName(),student.getSchool(),student.getEmail(),
+                student.getDepartment(),student.getPhone(),student.getImgPath());
     }
 
     @RequestMapping(value = "/student/loginout", method = RequestMethod.GET)
-    public ResultResponse loginout(){
-        return null;
+    public ResultResponse loginout(HttpSession session){
+        session.setAttribute("id",null);
+        return new ResultResponse("true","登出成功！");
     }
 
     @RequestMapping(value = "/student/info/update", method = RequestMethod.POST)
-    public ResultResponse updateInfo(){
-        return null;
+    public ResultResponse updateInfo(@RequestBody UpdateInfoRequest request, HttpSession session){
+        User user = new User();
+        user.setUserID(session.getAttribute("id").toString());
+        user.setUserName(request.getName());
+        user.setDepartment(request.getDepartment());
+        user.setEmail(request.getEmail());
+        user.setImgPath(request.getImage());
+        user.setSchool(request.getSchool());
+        if (studentService.updateById(user)){
+            return new ResultResponse("true","信息更新成功！");
+        }else {
+            return new ResultResponse("false", "信息更新失败！");
+
+        }
     }
 
     @RequestMapping(value = "/student/password/update", method = RequestMethod.POST)
-    public ResultResponse updatePassword(){
-        return null;
+    public ResultResponse updatePassword(@RequestBody UpdatePasswordRequest request, HttpSession session){
+        User user = new User();
+        user.setUserID(session.getAttribute("id").toString());
+        user.setPassword(request.getNewPassword());
+        if (studentService.updateById(user)){
+            return new ResultResponse("true","密码更新成功！");
+        }else {
+            return new ResultResponse("false","信息更新失败！");
+        }
     }
 
 }
