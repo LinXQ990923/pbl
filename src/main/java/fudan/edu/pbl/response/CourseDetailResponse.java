@@ -10,6 +10,10 @@ public class CourseDetailResponse {
     private String image;
     private String isAdd;
 
+    public CourseDetailResponse(){
+
+    }
+
     public CourseDetailResponse(String id, String name, String introduction, String teacher, String end_time, String image, String isAdd) {
         this.id = id;
         this.name = name;

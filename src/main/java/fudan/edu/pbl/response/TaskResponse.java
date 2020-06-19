@@ -9,6 +9,10 @@ public class TaskResponse {
     private String end_time;//任务结束时间
     private String finish;//任务是否完成，默认为false
 
+    public TaskResponse(){
+
+    }
+
     public TaskResponse(String id, String name, String description, String start_time, String end_time, String finish) {
         this.id = id;
         this.name = name;

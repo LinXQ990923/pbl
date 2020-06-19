@@ -6,6 +6,10 @@ public class AuthResponse {
 
     private String password;
 
+    public AuthResponse(){
+
+    }
+
     public AuthResponse(String userId, String password) {
         this.userId = userId;
         this.password = password;

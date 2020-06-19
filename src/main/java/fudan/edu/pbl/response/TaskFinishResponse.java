@@ -7,6 +7,10 @@ public class TaskFinishResponse {
     private String finished;//已完成的组员名字
     private String not_finished;
 
+    public TaskFinishResponse(){
+
+    }
+
     public TaskFinishResponse(String id, String name, String finished, String not_finished) {
         this.id = id;
         this.name = name;

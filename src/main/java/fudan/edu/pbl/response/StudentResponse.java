@@ -10,6 +10,10 @@ public class StudentResponse {
     public String phone;
     public String image;
 
+    public StudentResponse(){
+
+    }
+
     public StudentResponse(String id, String name, String school, String department, String email, String phone, String image) {
         this.id = id;
         this.name = name;

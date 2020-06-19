@@ -11,6 +11,10 @@ public class ProjectsResponse {
     private String role;//1-组长或2-组员
     private String score;//评分方式：true-有互评  false-无互评
 
+    public ProjectsResponse(){
+
+    }
+
     public ProjectsResponse(String id, String name, String description, String start_time, String end_time, String isAdd, String role, String score) {
         this.id = id;
         this.name = name;

@@ -6,6 +6,10 @@ public class MemberResponse {
     private String name;//组员名字
     private String role;//角色：1-组长 2-组员
 
+    public MemberResponse(){
+
+    }
+
     public MemberResponse(String id, String name, String role) {
         this.id = id;
         this.name = name;

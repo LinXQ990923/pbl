@@ -7,6 +7,10 @@ public class ScoreResponse {
     private String grade;//分数
     private String message;//评价
 
+    public ScoreResponse(){
+
+    }
+
     public ScoreResponse(String name, String role, String grade, String message) {
         this.name = name;
         this.role = role;

@@ -8,6 +8,10 @@ public class CommentResponse {
     private String reply;//回复的评论id，如果为第一条发布的，该项为空string“”
     private String content;//评论内容
 
+    public CommentResponse(){
+
+    }
+
     public CommentResponse(String id, String author, String date, String reply, String content) {
         this.id = id;
         this.author = author;

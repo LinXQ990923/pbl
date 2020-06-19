@@ -7,6 +7,10 @@ public class CourseResponse {
     private String introduction;
     private String image;
 
+    public CourseResponse(){
+
+    }
+
     public CourseResponse(String id, String name, String introduction, String image) {
         this.id = id;
         this.name = name;
