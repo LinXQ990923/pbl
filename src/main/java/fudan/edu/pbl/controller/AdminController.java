@@ -18,6 +18,7 @@ import fudan.edu.pbl.service.impl.AdminServiceImpl;
 import fudan.edu.pbl.service.impl.CourseServiceImpl;
 import fudan.edu.pbl.service.impl.FileServiceImpl;
 import fudan.edu.pbl.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
@@ -38,9 +39,12 @@ import java.util.List;
 @RestController
 public class AdminController {
 
+    @Autowired AdminServiceImpl adminService;
+    @Autowired UserServiceImpl userService;
+    @Autowired CourseServiceImpl courseService;
+
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public ResultResponse adminLogin(@RequestBody LoginAsAdminRequest request, HttpSession session){
-        AdminServiceImpl adminService = new AdminServiceImpl();
         Admin admin = adminService.getById(request.getId());
         if(admin != null){
             if(admin.getPassword().equals(request.getPassword())){
@@ -57,7 +61,6 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/students", method = RequestMethod.GET)
     public List<StudentResponse> getAllStudent(){
-        UserServiceImpl userService = new UserServiceImpl();
         List<StudentResponse> studentList = null;
         List<User> userList = userService.list();
         for(int i = 0; i < userList.size(); i++){
@@ -73,7 +76,6 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/student/delete", method = RequestMethod.GET)
     public ResultResponse deleteStudent(@RequestParam(value = "student_id", required = true) String id){
-        UserServiceImpl userService = new UserServiceImpl();
         Boolean flag = userService.removeById(id);
         if(flag){
             return new ResultResponse("true", "Delete student successfully!");
@@ -84,8 +86,6 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/teachers", method = RequestMethod.GET)
     public List<TeacherResponse> getAllTeacher(){
-        UserServiceImpl userService = new UserServiceImpl();
-        FileServiceImpl fileService = new FileServiceImpl();
         List<TeacherResponse> teacherList = null;
         List<User> userList = userService.list();
         for(int i = 0; i < userList.size(); i++){
@@ -101,7 +101,6 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/teacher/delete", method = RequestMethod.GET)
     public ResultResponse deleteTeacher(@RequestParam(value = "teacher_id", required = true) String id){
-        UserServiceImpl userService = new UserServiceImpl();
         Boolean flag = userService.removeById(id);
         if(flag){
             return new ResultResponse("true", "Delete teacher successfully!");
@@ -129,8 +128,6 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/courses", method = RequestMethod.GET)
     public List<CourseDetailResponse> getAllCourses(){
-        CourseServiceImpl courseService = new CourseServiceImpl();
-        UserServiceImpl userService = new UserServiceImpl();
         List<Course> courseList = courseService.list();
         List<CourseDetailResponse> courseDetailList = null;
         CourseDetailResponse courseDetail = null;
