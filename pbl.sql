@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS User (
   phone VARCHAR(20) DEFAULT NULL,
   school VARCHAR(50) DEFAULT NULL,
   department VARCHAR(50) DEFAULT NULL,
-  imgID INT(32) DEFAULT 0,
+  imgPath VARCHAR(100) DEFAULT NULL ,
   role INT(1) DEFAULT 0,
   PRIMARY KEY (userID)
   )DEFAULT CHARACTER SET = utf8;
@@ -43,14 +43,13 @@ CREATE TABLE IF NOT EXISTS Course (
   courseID INT(32) NOT NULL AUTO_INCREMENT,
   courseName VARCHAR(50) NOT NULL,
   introduction VARCHAR(255) NOT NULL,
-  imgID INT(32) NOT NULL,
+  imgPath VARCHAR (100) NOT NULL ,
   startTime DATETIME NOT NULL,
   endTime DATETIME NOT NULL,
   hasDelete INT(1) DEFAULT 0,
   teacherID VARCHAR(15) NOT NULL,
   PRIMARY KEY (courseID),
   FOREIGN KEY (teacherID) references User(userID)
-  #FOREIGN KEY (imgID) references File(fileID)
   )DEFAULT CHARACTER SET = utf8;
 
 DROP TABLE IF EXISTS Program;
@@ -139,10 +138,10 @@ CREATE TABLE IF NOT EXISTS task_user
   FOREIGN KEY (userID) REFERENCES User(userID)
 )DEFAULT CHARACTER SET = utf8;
 
-INSERT INTO User VALUES ("test","test","test","test","test","test","test",1,0);
-INSERT INTO User VALUES ("test1","test","test","test","test","test","test",1,1);
+INSERT INTO User VALUES ("test","test","test","test","test","test","test","/test",0);
+INSERT INTO User VALUES ("test1","test","test","test","test","test","test","/test",1);
 INSERT INTO Admin VALUES ("admin","admin");
-INSERT INTO Course VALUES (null,"程序设计","programming",1,now(),now(),0,"test1");
+INSERT INTO Course VALUES (null,"程序设计","programming","/test",now(),now(),0,"test1");
 INSERT INTO Program VALUES (null,"project","programming",now(),now(),1,"policy",0);
 INSERT INTO Task VALUES (null,"lab1","programming",now(),now(),1,0);
 INSERT INTO File VALUES (null,"testFile","./test",now(),"test",1);

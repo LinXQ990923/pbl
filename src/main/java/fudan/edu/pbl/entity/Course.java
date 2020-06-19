@@ -27,8 +27,8 @@ public class Course implements Serializable {
 
     private String introduction;
 
-    @TableField("imgID")
-    private Integer imgID;
+    @TableField("imgPath")
+    private String imgPath;
 
     @TableField("startTime")
     private LocalDateTime startTime;
@@ -69,13 +69,7 @@ public class Course implements Serializable {
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
-    public Integer getImgID() {
-        return imgID;
-    }
 
-    public void setImgID(Integer imgID) {
-        this.imgID = imgID;
-    }
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -111,7 +105,7 @@ public class Course implements Serializable {
             "courseID=" + courseID +
             ", courseName=" + courseName +
             ", introduction=" + introduction +
-            ", imgID=" + imgID +
+            ", imgPath=" + imgPath +
             ", startTime=" + startTime +
             ", endTime=" + endTime +
             ", hasDelete=" + hasDelete +
@@ -133,5 +127,13 @@ public class Course implements Serializable {
 
     public void setProgramList(List<Program> programList) {
         this.programList = programList;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 }
