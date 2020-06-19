@@ -2,18 +2,34 @@ package fudan.edu.pbl.request;
 
 public class CreateProjectRequest {
 
+    private String course_id;
     private String name;
     private String description;
     private String start_time;
     private String end_time;
-    private String score;
+    private String teacherProportion;
+    private String studentProportion;
 
-    public CreateProjectRequest(String name, String description, String start_time, String end_time, String score) {
+    public CreateProjectRequest(){
+
+    }
+
+    public CreateProjectRequest(String course_id, String name, String description, String start_time, String end_time, String teacherProportion, String studentProportion) {
+        this.course_id = course_id;
         this.name = name;
         this.description = description;
         this.start_time = start_time;
         this.end_time = end_time;
-        this.score = score;
+        this.teacherProportion = teacherProportion;
+        this.studentProportion = studentProportion;
+    }
+
+    public String getCourse_id() {
+        return course_id;
+    }
+
+    public void setCourse_id(String course_id) {
+        this.course_id = course_id;
     }
 
     public String getName() {
@@ -48,11 +64,19 @@ public class CreateProjectRequest {
         this.end_time = end_time;
     }
 
-    public String getScore() {
-        return score;
+    public String getTeacherProportion() {
+        return teacherProportion;
     }
 
-    public void setScore(String score) {
-        this.score = score;
+    public void setTeacherProportion(String teacherProportion) {
+        this.teacherProportion = teacherProportion;
+    }
+
+    public String getStudentProportion() {
+        return studentProportion;
+    }
+
+    public void setStudentProportion(String studentProportion) {
+        this.studentProportion = studentProportion;
     }
 }
