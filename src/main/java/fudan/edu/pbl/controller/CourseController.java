@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBody
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,10 +41,10 @@ public class CourseController {
     @RequestMapping(value = "/user/courses", method = RequestMethod.GET)
     public List<CourseResponse> getAllCourses(){
         List<Course> courseList = courseService.list();
-        List<CourseResponse> coursesList = null;
+        List<CourseResponse> coursesList = new ArrayList<>();
         for(int i = 0; i < courseList.size(); i++){
             Course course = courseList.get(i);
-            CourseResponse courses = null;
+            CourseResponse courses = new CourseResponse();
             courses.setId(course.getCourseID().toString());
             courses.setName(course.getCourseName());
             courses.setIntroduction(course.getIntroduction());
@@ -57,10 +58,10 @@ public class CourseController {
     public List<CourseResponse> getMyCourses(@RequestParam HttpSession session){
         User user = userService.getByIdWithProperties(session.getAttribute("id").toString());
         List<Course> courseList = user.getCourseList();
-        List<CourseResponse> coursesList = null;
+        List<CourseResponse> coursesList = new ArrayList<>();
         for(int i = 0; i < courseList.size(); i++){
             Course course = courseList.get(i);
-            CourseResponse courses = null;
+            CourseResponse courses = new CourseResponse();
             courses.setId(course.getCourseID().toString());
             courses.setName(course.getCourseName());
             courses.setIntroduction(course.getIntroduction());

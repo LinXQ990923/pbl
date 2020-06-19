@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -60,7 +61,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/students", method = RequestMethod.GET)
     public List<StudentResponse> getAllStudent(){
-        List<StudentResponse> studentList = null;
+        List<StudentResponse> studentList = new ArrayList<>();
         List<User> userList = userService.list();
         for(int i = 0; i < userList.size(); i++){
             User user = userList.get(i);
@@ -85,7 +86,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/teachers", method = RequestMethod.GET)
     public List<TeacherResponse> getAllTeacher(){
-        List<TeacherResponse> teacherList = null;
+        List<TeacherResponse> teacherList = new ArrayList<>();
         List<User> userList = userService.list();
         for(int i = 0; i < userList.size(); i++){
             User user = userList.get(i);
@@ -127,10 +128,10 @@ public class AdminController {
     @RequestMapping(value = "/admin/courses", method = RequestMethod.GET)
     public List<CourseDetailResponse> getAllCourses(){
         List<Course> courseList = courseService.list();
-        List<CourseDetailResponse> courseDetailList = null;
+        List<CourseDetailResponse> courseDetailList = new ArrayList<>();
         for(int i = 0; i < courseList.size(); i++){
             Course course = courseList.get(i);
-            CourseDetailResponse courseDetail = null;
+            CourseDetailResponse courseDetail = new CourseDetailResponse();
             courseDetail.setId(course.getCourseID().toString());
             courseDetail.setName(course.getCourseName());
             courseDetail.setIntroduction(course.getIntroduction());
