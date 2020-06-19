@@ -18,7 +18,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TeacherService {
-  getInfoUrl="/teacher/info";
+  getInfoUrl="/teacher/getinfo";
   loginoutUrl="/teacher/loginout";
   updateInfoUrl="/teacher/info/update";
   updatePasswordUrl="/teacher/password/update";

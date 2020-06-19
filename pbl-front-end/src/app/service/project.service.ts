@@ -46,6 +46,8 @@ export class ProjectService {
   getStudentCommentsUrl="/course/project/student/comment";//返回指定学生的讨论记录
   getStudentTaskUrl="/course/project/student/task";//返回指定学生的任务完成情况
   getStudentScoreUrl="/course/project/student/score";
+  downloadFileUrl="/file/download";
+  deleteFileUrl="/file/delete";
 
   constructor(
     private http:HttpClient/* 依赖注入 */
@@ -209,5 +211,15 @@ export class ProjectService {
 
     let url = "/assets/data/score.json";
     return this.http.get<Score[]>(url).pipe();
+  }
+
+  downloadFile(data):Observable<Result>{
+    let url=this.downloadFileUrl+"?file_name="+data;
+    return this.http.get<Result>(url).pipe();
+  }
+
+  deleteFile(data):Observable<Result>{
+    let url=this.deleteFileUrl+"?file_id="+data;
+    return this.http.get<Result>(url).pipe();
   }
 }

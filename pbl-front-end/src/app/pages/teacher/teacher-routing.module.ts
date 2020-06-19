@@ -24,7 +24,7 @@ const routes: Routes = [
       {path:'myCourses',component:TeacherMyCourseComponent},
       {path:'course/create',component:TeacherCourseCreateComponent},
       {path:'courseDetail/:course_id',component:CourseDetailComponent},
-      {path:'project/create',component:TeacherProjectCreateComponent},
+      {path:'project/create/:course_id',component:TeacherProjectCreateComponent},
       {path:'projectDetail/:project_id', component:ProjectDetailComponent},
       {path:'projectComment/:project_id', component:ProjectCommentAreaComponent},
       {path:'projectFile/:project_id', component:ProjectFileAreaComponent},

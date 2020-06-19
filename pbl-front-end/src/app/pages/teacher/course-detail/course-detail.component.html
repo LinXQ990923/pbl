@@ -14,7 +14,7 @@
   </nz-descriptions>
 
   <h4>项目列表</h4>
-  <button nz-button nzType="primary" nzOrientation="right" class="right" routerLink="/teacher/project/create">增设项目</button>
+  <button nz-button nzType="primary" nzOrientation="right" class="right" [routerLink]="['/teacher/project/create',course_id]">增设项目</button>
   <br>
   <br>
   <nz-list nzItemLayout="horizontal" [nzLoading]="loading">

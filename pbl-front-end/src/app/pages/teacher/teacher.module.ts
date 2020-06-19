@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { TeacherRoutingModule } from './teacher-routing.module';
 import { TeacherMainComponent } from './teacher-main/teacher-main.component';
 import {
-  NzAvatarModule, NzBadgeModule,
-  NzBreadCrumbModule, NzButtonModule, NzCardModule, NzCollapseModule, NzCommentModule, NzDatePickerModule,
-  NzDescriptionsModule, NzDividerModule, NzFormModule,
-  NzIconModule, NzInputModule,
-  NzLayoutModule, NzListModule,
-  NzMenuModule, NzPaginationModule, NzRadioModule, NzTagModule, NzTypographyModule, NzUploadModule
+    NzAvatarModule, NzBadgeModule,
+    NzBreadCrumbModule, NzButtonModule, NzCardModule, NzCollapseModule, NzCommentModule, NzDatePickerModule,
+    NzDescriptionsModule, NzDividerModule, NzFormModule,
+    NzIconModule, NzInputModule, NzInputNumberModule,
+    NzLayoutModule, NzListModule,
+    NzMenuModule, NzPaginationModule, NzRadioModule, NzTagModule, NzTypographyModule, NzUploadModule
 } from "ng-zorro-antd";
 import { TeacherInfoComponent } from './teacher-info/teacher-info.component';
 import { TeacherUpdateInfoComponent } from './teacher-update-info/teacher-update-info.component';
@@ -30,32 +30,33 @@ import { ProjectScoreDetailComponent } from './project-score-detail/project-scor
 
 @NgModule({
   declarations: [TeacherMainComponent, TeacherInfoComponent, TeacherUpdateInfoComponent, TeacherUpdatePasswordComponent, TeacherMyCourseComponent, TeacherCourseCreateComponent, CourseDetailComponent, TeacherProjectCreateComponent, ProjectDetailComponent, ProjectCommentAreaComponent, ProjectFileAreaComponent, ProjectTaskCreateComponent, ProjectTaskFinishComponent, ProjectScoreCreateComponent, ProjectScoreDetailComponent],
-  imports: [
-    CommonModule,
-    TeacherRoutingModule,
-    NzLayoutModule,
-    NzAvatarModule,
-    NzMenuModule,
-    NzIconModule,
-    NzBreadCrumbModule,
-    NzDescriptionsModule,
-    NzBadgeModule,
-    NzFormModule,
-    NzInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NzUploadModule,
-    NzButtonModule,
-    NzCardModule,
-    NzPaginationModule,
-    NzDatePickerModule,
-    NzListModule,
-    NzRadioModule,
-    NzDividerModule,
-    NzTypographyModule,
-    NzCommentModule,
-    NzCollapseModule,
-    NzTagModule
-  ]
+    imports: [
+        CommonModule,
+        TeacherRoutingModule,
+        NzLayoutModule,
+        NzAvatarModule,
+        NzMenuModule,
+        NzIconModule,
+        NzBreadCrumbModule,
+        NzDescriptionsModule,
+        NzBadgeModule,
+        NzFormModule,
+        NzInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NzUploadModule,
+        NzButtonModule,
+        NzCardModule,
+        NzPaginationModule,
+        NzDatePickerModule,
+        NzListModule,
+        NzRadioModule,
+        NzDividerModule,
+        NzTypographyModule,
+        NzCommentModule,
+        NzCollapseModule,
+        NzTagModule,
+        NzInputNumberModule
+    ]
 })
 export class TeacherModule { }

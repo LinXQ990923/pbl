@@ -171,6 +171,7 @@ export class StudentUpdateInfoComponent implements OnInit {
       case 'done':
         // Get this url from response in real world.
         this.respUrl = info.file.response.path;
+        console.log(this.respUrl);
         this.getBase64(info.file!.originFileObj!, (img: string) => {
           this.loading = false;
           this.avatarUrl = img;
