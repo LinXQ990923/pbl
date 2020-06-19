@@ -1,11 +1,11 @@
 package fudan.edu.pbl.request;
 
-public class AddScoreRequest {
+public class StudentAddScoreRequest {
 
     private String score;
     private String description;
 
-    public AddScoreRequest(String score, String description) {
+    public StudentAddScoreRequest(String score, String description) {
         this.score = score;
         this.description = description;
     }
