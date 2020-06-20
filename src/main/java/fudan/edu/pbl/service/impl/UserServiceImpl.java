@@ -92,5 +92,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.selectFromGrades(programID,userID1);
     }
 
+    public List<HashMap> selectFromProgramUserWithProgramID (String id){
+        return userMapper.selectFromProgramUserWithProgramID(id);
+    }
 
 }

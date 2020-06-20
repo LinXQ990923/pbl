@@ -78,7 +78,7 @@ public class UserMapperTest {
 //        System.out.println(courseMapper.selectById(1).getIntroduction());
     }
 
-    @Test
+    /*@Test
     public void testAboutTask(){
         Map<String,Object> map = new HashMap();
         map.put("programID",1);
@@ -89,7 +89,7 @@ public class UserMapperTest {
         userMapper.finishTask(1,"test");
 
 
-    }
+    }*/
 
     @Test
     public void testAboutFile(){
@@ -99,11 +99,7 @@ public class UserMapperTest {
             System.out.println(file.getFileName());
         }
     }
-    @Test
-    public void test(){
-        UserServiceImpl impl = new UserServiceImpl();
-        impl.getById("test");
-    }
+
 
     @Test
     public void testUpdate(){
@@ -165,9 +161,9 @@ public class UserMapperTest {
     @Test
     public void testGrade(){
         //userService.grade(1,"test","test1",2,66.6,"good");
-        System.out.println(userMapper.getTeacherGrade(1,"test"));
+        //System.out.println(userMapper.getTeacherGrade(1,"test"));
         System.out.println(userMapper.checkIfGraded(1,"test1","test1"));
-        System.out.println(userMapper.getStudentGrade(1,"test"));
+        //System.out.println(userMapper.getStudentGrade(1,"test"));
         System.out.println(commentMapper.getCommentsByStudent("test"));
     }
 

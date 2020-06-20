@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,18 +36,26 @@ public class ScoreController {
     public List<ScoreResponse> getScore(@RequestParam(value = "project_id", required = true)String id, HttpSession session){
         List<ScoreResponse> scoreList = new ArrayList<>();
         Program program = programService.getById(id);
-        ScoreResponse teacherScore = new ScoreResponse();
-        ScoreResponse studentScore = new ScoreResponse();
-        teacherScore.setName(program.getProgramName());
-        teacherScore.setRole("1");
-        teacherScore.setGrade(String.valueOf(userService.getTeacherGrade(Integer.parseInt(id), session.getAttribute("id").toString())*Integer.parseInt(program.getGradePolicy())*0.01));
-        teacherScore.setMessage("");
-        scoreList.add(teacherScore);
-        studentScore.setName(program.getProgramName());
-        studentScore.setRole("2");
-        studentScore.setGrade(String.valueOf(userService.getStudentGrade(Integer.parseInt(id), session.getAttribute("id").toString())*(100-Integer.parseInt(program.getGradePolicy()))*0.01));
-        studentScore.setMessage("");
-        scoreList.add(studentScore);
+        if(program.getGradePolicy().equals("true")){
+            ScoreResponse teacherScore = new ScoreResponse();
+            ScoreResponse studentScore = new ScoreResponse();
+            teacherScore.setName(program.getProgramName());
+            teacherScore.setRole("1");
+            teacherScore.setGrade(String.valueOf(userService.getTeacherGrade(Integer.parseInt(id), session.getAttribute("id").toString())*program.getTeacherRatio()*0.01));
+            teacherScore.setMessage("");
+            scoreList.add(teacherScore);
+            studentScore.setName(program.getProgramName());
+            studentScore.setRole("2");
+            studentScore.setGrade(String.valueOf(userService.getStudentGrade(Integer.parseInt(id), session.getAttribute("id").toString())*program.getStudentRatio()*0.01));
+            studentScore.setMessage("");
+            scoreList.add(studentScore);
+        }else{
+            ScoreResponse teacherScore = new ScoreResponse();
+            teacherScore.setRole("1");
+            teacherScore.setGrade(String.valueOf(userService.getTeacherGrade(Integer.parseInt(id), session.getAttribute("id").toString())));
+            teacherScore.setMessage("");
+            scoreList.add(teacherScore);
+        }
         return scoreList;
     }
 

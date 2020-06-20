@@ -95,6 +95,7 @@ public class CourseController {
     @RequestMapping(value = "/course/detail", method = RequestMethod.GET)
     public CourseDetailResponse getCourseDetail(@RequestParam(value = "course_id", required = true) String id,HttpSession session){
         Course course = courseService.getById(id);
+        session.setAttribute("course_id", id);
         DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if(course != null){
             String isAdd=userService.ifChooseCourse(course.getCourseID(),session.getAttribute("id").toString())==null?"false":"true";

@@ -49,5 +49,7 @@ public interface UserService extends IService<User> {
 
     Map selectFromGrades(int programID,String userID1);
 
+    List<HashMap> selectFromProgramUserWithProgramID (String id);
+
 
 }
