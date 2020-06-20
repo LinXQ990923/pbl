@@ -91,50 +91,33 @@ public class FileController {
     }
 
     @ResponseBody
-    @RequestMapping("/download")
-    public ResultResponse download(@RequestParam (value = "file_name")String fileName, HttpServletResponse response) throws UnsupportedEncodingException {
-        String filePath = null;
+    @RequestMapping(value = "/download",method = RequestMethod.GET)
+    public void download(@RequestParam (value = "file_name")String fileName, HttpServletResponse response) throws IOException {
+        System.out.println("get request "+fileName);
+        String filePath= null;
         try {
-            filePath = ResourceUtils.getURL("classpath:").getPath()+"static/up/93e445c3f.png";
+            filePath = ResourceUtils.getURL("classpath:").getPath()+"static"+fileName;
         }catch (FileNotFoundException e){
-            return new ResultResponse("false","file error");
+            e.printStackTrace();
         }
-        System.out.println(filePath);
-        java.io.File file=new java.io.File(filePath);
-        if (file.exists()){
-            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Content-Disposition", "attachment;fileName=" +   java.net.URLEncoder.encode(fileName,"UTF-8"));
-            byte[] buffer = new byte[1024];
-            FileInputStream fis = null; //文件输入流
-            BufferedInputStream bis = null;
-
-            OutputStream os = null; //输出流
-            try {
-                os = response.getOutputStream();
-                fis = new FileInputStream(file);
-                bis = new BufferedInputStream(fis);
-                int i = bis.read(buffer);
-                while(i != -1){
-                    os.write(buffer);
-                    i = bis.read(buffer);
+        if (filePath!=null){
+            java.io.File file=new java.io.File(filePath);
+            if (file.exists()){
+                response.setContentType("application/force-download");
+                response.setHeader("Content-Disposition","attachment;fileName="+fileName);
+                byte[]buffer=new byte[1024];
+                try (FileInputStream fis = new FileInputStream(file); BufferedInputStream bis = new BufferedInputStream(fis)) {
+                    OutputStream os = response.getOutputStream();
+                    int i = bis.read(buffer);
+                    while (i != -1) {
+                        os.write(buffer, 0, i);
+                        i = bis.read(buffer);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            try {
-                if (bis != null) {
-                    bis.close();
-                }
-                if (fis != null) {
-                    fis.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
-        return new ResultResponse("true","download successfully");
     }
 
     @RequestMapping("/delete")

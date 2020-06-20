@@ -198,5 +198,9 @@
   "/up/*": {
     "target": "http://localhost:8080",
     "secure": "false"
+  },
+  "/teacher/courses/get": {
+    "target": "http://localhost:8080",
+    "secure": "false"
   }
 }

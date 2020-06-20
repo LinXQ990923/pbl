@@ -42,8 +42,8 @@ export class ProjectFileAreaComponent implements OnInit {
   }
 
   download(path):void{
-    this.project.downloadFile("path").subscribe(res=>{
-      alert(res.status);
+    this.project.downloadFile("/up/1a95aff82.jpg").subscribe(res=>{
+
     });
   }
 

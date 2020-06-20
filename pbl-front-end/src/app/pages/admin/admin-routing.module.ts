@@ -9,10 +9,10 @@ import {CourseListComponent} from "./course-list/course-list.component";
 
 const routes: Routes = [
   {path:'',component:AdminMainComponent,children:[
-      {path:'students',component:AdminStudentsComponent},
-      {path:'teachers',component:AdminTeachersComponent},
-      {path:'courses',component:CourseListComponent},
-      {path:'courses/create',component:CourseCreateComponent}
+      {path:'allStudents',component:AdminStudentsComponent},
+      {path:'allTeachers',component:AdminTeachersComponent},
+      {path:'allCourses',component:CourseListComponent},
+      {path:'allCourses/create',component:CourseCreateComponent}
     ]
   }
 ];

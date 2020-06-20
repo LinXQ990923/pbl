@@ -93,7 +93,7 @@ export class CourseCreateComponent implements OnInit {
     }).subscribe(res=>{
       if (res.status=='true'){
         this.message.create("success", "增设成功");
-        this.router.navigate(['admin','courses']);
+        this.router.navigate(['admin','allCourses']);
       }else {
         this.modal.error({
           nzTitle:"增设失败",

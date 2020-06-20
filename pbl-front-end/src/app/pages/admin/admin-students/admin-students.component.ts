@@ -102,11 +102,17 @@ export class AdminStudentsComponent implements OnInit {
       "email": this.validateForm.value.email
     }).subscribe(result => {
       if(result.status === "true"){
-        location.reload();
+        this.modal.success({
+          nzTitle: '添加成功',
+          nzContent: result.message
+        });
+        this.auth.getAllStudent().subscribe(res=>{
+          this.listOfData=res;
+        })
       }
       else{
         this.modal.error({
-          nzTitle: '登陆信息有误',
+          nzTitle: '添加失败',
           nzContent: result.message
         });
       }
@@ -116,7 +122,13 @@ export class AdminStudentsComponent implements OnInit {
   deleteStudent(id):void{
     this.auth.deleteStudent(id).subscribe(res=>{
       if(res.status === "true"){
-        location.reload();
+        this.modal.success({
+          nzTitle: '删除成功',
+          nzContent: res.message
+        });
+        this.auth.getAllStudent().subscribe(result=>{
+          this.listOfData=result;
+        })
       }
       else{
         this.modal.error({

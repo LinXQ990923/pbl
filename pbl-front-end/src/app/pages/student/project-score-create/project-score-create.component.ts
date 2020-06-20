@@ -60,6 +60,7 @@ export class ProjectScoreCreateComponent implements OnInit {
 
   submitForm():void{
     this.project.addScore({
+      student_id:'',
       score:this.validateForm.value.score,
       description:this.validateForm.value.description,
     }).subscribe(res=>{

@@ -19,7 +19,7 @@ export class TeacherMyCourseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.course.getMyCourses().subscribe(res=>{
+    this.course.getTeacherCourses().subscribe(res=>{
       for (let r of res){
         if (r.introduction.length>20){
           r.introduction = r.introduction.slice(0,18)+'...';

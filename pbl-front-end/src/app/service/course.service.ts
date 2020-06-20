@@ -25,56 +25,62 @@ export class CourseService {
   addCourseUrl="/course/add";
   createCourseUrl="/course/create";
   deleteCourseUrl="/course/delete";
+  getTeacherCoursesUrl="/teacher/courses/get"
 
   constructor(
     private http:HttpClient/* 依赖注入 */
   ) { }
 
   getAllCourses():Observable<Course[]>{
-    // let url = this.getAllCoursesUrl;
-    // return this.http.get<Course[]>(url).pipe();
-
-    let url = "/assets/data/courses.json";
+    let url = this.getAllCoursesUrl;
     return this.http.get<Course[]>(url).pipe();
+
+    // let url = "/assets/data/courses.json";
+    // return this.http.get<Course[]>(url).pipe();
   }
 
   getMyCourses():Observable<Course[]>{
-    // let url = this.getMyCoursesUrl;
-    // return this.http.get<Course[]>(url).pipe();
-
-    let url = "/assets/data/courses.json";
+    let url = this.getMyCoursesUrl;
     return this.http.get<Course[]>(url).pipe();
+
+    // let url = "/assets/data/courses.json";
+    // return this.http.get<Course[]>(url).pipe();
   }
 
   getCourseDetail(data):Observable<CourseDetail>{
-    // let url = this.getCourseDetailUrl+"?course_id="+data;
-    // return this.http.get<CourseDetail>(url).pipe();
-
-    let url = "/assets/data/courseDetail.json";
+    let url = this.getCourseDetailUrl+"?course_id="+data;
     return this.http.get<CourseDetail>(url).pipe();
+
+    // let url = "/assets/data/courseDetail.json";
+    // return this.http.get<CourseDetail>(url).pipe();
   }
 
   addCourse(data):Observable<Result>{
-    // let url = this.addCourseUrl+"?course_id="+data;
-    // return this.http.get<Result>(url).pipe();
-
-    let url = "/assets/data/success.json";
+    let url = this.addCourseUrl+"?course_id="+data;
     return this.http.get<Result>(url).pipe();
+
+    // let url = "/assets/data/success.json";
+    // return this.http.get<Result>(url).pipe();
   }
 
   createCourse(data):Observable<Result>{
-    // let url = this.createCourseUrl;
-    // return this.http.post<Result>(url,data,httpOptions).pipe();
+    let url = this.createCourseUrl;
+    return this.http.post<Result>(url,data,httpOptions).pipe();
 
-    let url = "/assets/data/success.json";
-    return this.http.get<Result>(url).pipe();
+    // let url = "/assets/data/success.json";
+    // return this.http.get<Result>(url).pipe();
   }
 
   deleteCourse(data):Observable<Result>{
-    // let url = this.deleteCourseUrl+"?course_id="+data;
-    // return this.http.get<Result>(url).pipe();
-
-    let url = "/assets/data/success.json";
+    let url = this.deleteCourseUrl+"?course_id="+data;
     return this.http.get<Result>(url).pipe();
+
+    // let url = "/assets/data/success.json";
+    // return this.http.get<Result>(url).pipe();
+  }
+
+  getTeacherCourses():Observable<Course[]>{
+    let url = this.getTeacherCoursesUrl;
+    return this.http.get<Course[]>(url).pipe();
   }
 }

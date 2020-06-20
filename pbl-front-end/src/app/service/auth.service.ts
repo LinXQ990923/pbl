@@ -106,35 +106,35 @@ export class AuthService {
   }
 
   deleteStudent(data):Observable<Result>{
-    // let url = this.deleteStudentUrl+"?student_id="+data;
-    // return this.http.get<Result>(url).pipe();
-
-    let url = "/assets/data/success.json";
+    let url = this.deleteStudentUrl+"?student_id="+data;
     return this.http.get<Result>(url).pipe();
+
+    // let url = "/assets/data/success.json";
+    // return this.http.get<Result>(url).pipe();
   }
 
   deleteTeacher(data):Observable<Result>{
-    // let url = this.deleteTeacherUrl+"?teacher_id="+data;
-    // return this.http.get<Result>(url).pipe();
-
-    let url = "/assets/data/success.json";
+    let url = this.deleteTeacherUrl+"?teacher_id="+data;
     return this.http.get<Result>(url).pipe();
+
+    // let url = "/assets/data/success.json";
+    // return this.http.get<Result>(url).pipe();
   }
 
   createCourse(data):Observable<Result>{
-    // let url = this.createCourseUrl;
-    // return this.http.post<Result>(url,data,httpOptions).pipe();
+    let url = this.createCourseUrl;
+    return this.http.post<Result>(url,data,httpOptions).pipe();
 
-    let url = "/assets/data/success.json";
-    return this.http.get<Result>(url).pipe();
+    // let url = "/assets/data/success.json";
+    // return this.http.get<Result>(url).pipe();
   }
 
   getAllCourse():Observable<CourseDetail[]>{
-    // let url = this.getAllCoursesUrl;
-    // return this.http.get<CourseDetail[]>(url).pipe();
-
-    let url = "/assets/data/courseDetails.json";
+    let url = this.getAllCoursesUrl;
     return this.http.get<CourseDetail[]>(url).pipe();
+
+    // let url = "/assets/data/courseDetails.json";
+    // return this.http.get<CourseDetail[]>(url).pipe();
   }
 
   private handleError(error: HttpErrorResponse, info:Observable<Result>):ObservableInput<Result>{

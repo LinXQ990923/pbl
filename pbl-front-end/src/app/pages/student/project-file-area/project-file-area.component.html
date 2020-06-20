@@ -30,7 +30,7 @@
       上传人：{{item.uploader}}
       <ul nz-list-item-actions>
         <nz-list-item-action>
-          <button nz-button nzType="primary" nzOrientation="right" class="right" [routerLink]="['/up','e09bdd48e.png']">查看</button>
+          <a [href]="item.path">查看</a>
         </nz-list-item-action>
         <nz-list-item-action>
           <button nz-button *ngIf="item.delete=='true'" nzType="primary" nzOrientation="right" class="right" (click)="delete(item.id)">删除</button>

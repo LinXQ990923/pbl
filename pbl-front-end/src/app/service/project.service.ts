@@ -213,9 +213,9 @@ export class ProjectService {
     return this.http.get<Score[]>(url).pipe();
   }
 
-  downloadFile(data):Observable<Result>{
+  downloadFile(data):Observable<Blob>{
     let url=this.downloadFileUrl+"?file_name="+data;
-    return this.http.get<Result>(url).pipe();
+    return this.http.get<Blob>(url).pipe();
   }
 
   deleteFile(data):Observable<Result>{
