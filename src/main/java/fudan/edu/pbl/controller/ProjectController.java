@@ -121,7 +121,7 @@ public class ProjectController {
         }else {
             return new ResultResponse("false","创建项目失败！");
         }
-    }
+}
 
     @RequestMapping(value = "/course/project/student/comment", method = RequestMethod.POST)
     public List<CommentResponse> getStudentComments(@RequestBody GetStudentCommentsRequest request){

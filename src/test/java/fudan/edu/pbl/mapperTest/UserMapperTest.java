@@ -99,11 +99,7 @@ public class UserMapperTest {
             System.out.println(file.getFileName());
         }
     }
-    @Test
-    public void test(){
-        UserServiceImpl impl = new UserServiceImpl();
-        impl.getById("test");
-    }
+
 
     @Test
     public void testUpdate(){
@@ -167,7 +163,7 @@ public class UserMapperTest {
         //userService.grade(1,"test","test1",2,66.6,"good");
         System.out.println(userMapper.getTeacherGrade(1,"test"));
         System.out.println(userMapper.checkIfGraded(1,"test1","test1"));
-        System.out.println(userMapper.getStudentGrade(1,"test"));
+        //System.out.println(userMapper.getStudentGrade(1,"test"));
         System.out.println(commentMapper.getCommentsByStudent("test"));
     }
 
