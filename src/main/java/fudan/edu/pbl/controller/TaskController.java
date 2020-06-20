@@ -48,7 +48,12 @@ public class TaskController {
         task.setProgramID(Integer.parseInt(session.getAttribute("program_id").toString()));
         task.setHasDelete(0);
         Boolean flag = taskService.save(task);
+        String program_id = session.getAttribute("program_id").toString();
         if(flag){
+            List<HashMap>list = userService.selectFromProgramUserWithProgramID(program_id);
+            for(HashMap map:list){
+                userService.fetchTask(Integer.parseInt(program_id), (String)map.get("userID"));
+            }
             return new ResultResponse("true", "Create task successfully!");
         }else{
             return new ResultResponse("false", "Create task failed!");
