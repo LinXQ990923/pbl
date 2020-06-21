@@ -165,6 +165,7 @@ public class UserMapperTest {
         System.out.println(userMapper.checkIfGraded(1,"test1","test1"));
         //System.out.println(userMapper.getStudentGrade(1,"test"));
         System.out.println(commentMapper.getCommentsByStudent("test"));
+        System.out.println(userMapper.getTeacherGrade(1,"test"));;
     }
 
 

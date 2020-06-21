@@ -41,11 +41,11 @@ public interface UserService extends IService<User> {
 
     void grade(int programID,String userID1,String userID2,int role,double grade,String evaluation);
 
-    double getTeacherGrade( int programID, String userID1);
+    Map getTeacherGrade( int programID, String userID1);
 
     Map checkIfGraded(int programID, String userID1, String userID2);
 
-    double getStudentGrade(int programID, String userID1);
+    Map getStudentGrade(int programID, String userID1);
 
     Map selectFromGrades(int programID,String userID1);
 

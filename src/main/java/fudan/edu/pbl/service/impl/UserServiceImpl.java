@@ -76,7 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.grade(programID,userID1,userID2,role,grade,evaluation);
     }
 
-    public double getTeacherGrade(int programID, String userID1){
+    public Map getTeacherGrade(int programID, String userID1){
         return userMapper.getTeacherGrade(programID,userID1);
     }
 
@@ -84,7 +84,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.checkIfGraded(programID,userID1,userID2);
     }
 
-    public double getStudentGrade(int programID, String userID1){
+    public Map getStudentGrade(int programID, String userID1){
         return userMapper.getStudentGrade(programID,userID1);
     }
 

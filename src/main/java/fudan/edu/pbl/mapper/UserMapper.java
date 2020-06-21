@@ -59,14 +59,14 @@ public interface UserMapper extends BaseMapper<User> {
     @Insert("insert into grades (programID,userID1,userID2,role,grade,evaluation) values (#{programID},#{userID1},#{userID2},#{role},#{grade},#{evaluation}) ")
     void grade(@Param("programID") int programID,@Param("userID1") String userID1,@Param("userID2") String userID2,@Param("role") int role,@Param("grade") double grade,@Param("evaluation") String evaluation);
 
-    @Select("select grade from grades where programID = #{programID} and userID1 = #{userID1} and role = 2")
-    double getTeacherGrade(@Param("programID") int programID, @Param("userID1") String userID1);
+    @Select("select grade,evaluation from grades where programID = #{programID} and userID1 = #{userID1} and role = 2")
+    Map getTeacherGrade(@Param("programID") int programID, @Param("userID1") String userID1);
 
     @Select("select * from grades where programID = #{programID} and userID1 = #{userID1} and userID2=#{userID2}")
     Map checkIfGraded(@Param("programID") int programID,@Param("userID1") String userID1,@Param("userID2") String userID2);
 
-    @Select("select grade from grades where programID = #{programID} and userID1 = #{userID1} and role = 1 ")
-    double getStudentGrade(@Param("programID") int programID, @Param("userID1") String userID1);
+    @Select("select grade,evaluation from grades where programID = #{programID} and userID1 = #{userID1} and role = 1 ")
+    Map getStudentGrade(@Param("programID") int programID, @Param("userID1") String userID1);
 
     @Select("select * from grades where programID = #{programID} and userID1 = #{userID1}")
     Map selectFromGrades(@Param("programID") int programID,@Param("userID1") String userID1);
