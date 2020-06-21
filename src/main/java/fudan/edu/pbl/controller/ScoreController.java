@@ -41,13 +41,13 @@ public class ScoreController {
             ScoreResponse studentScore = new ScoreResponse();
             teacherScore.setName(program.getProgramName());
             teacherScore.setRole("1");
-            teacherScore.setGrade(String.valueOf(userService.getTeacherGrade(Integer.parseInt(id), session.getAttribute("id").toString())*program.getTeacherRatio()*0.01));
-            teacherScore.setMessage("");
+            teacherScore.setGrade(String.valueOf(Integer.parseInt(userService.getTeacherGrade(Integer.parseInt(id), session.getAttribute("id").toString()).get("grade").toString())*program.getTeacherRatio()*0.01));
+            teacherScore.setMessage(userService.getTeacherGrade(Integer.parseInt(id), session.getAttribute("id").toString()).get("evaluation").toString());
             scoreList.add(teacherScore);
             studentScore.setName(program.getProgramName());
             studentScore.setRole("2");
-            studentScore.setGrade(String.valueOf(userService.getStudentGrade(Integer.parseInt(id), session.getAttribute("id").toString())*program.getStudentRatio()*0.01));
-            studentScore.setMessage("");
+            studentScore.setGrade(String.valueOf(Integer.parseInt(userService.getTeacherGrade(Integer.parseInt(id), session.getAttribute("id").toString()).get("grade").toString())*program.getStudentRatio()*0.01));
+            studentScore.setMessage(userService.getTeacherGrade(Integer.parseInt(id), session.getAttribute("id").toString()).get("evaluation").toString());
             scoreList.add(studentScore);
         }else{
             ScoreResponse teacherScore = new ScoreResponse();

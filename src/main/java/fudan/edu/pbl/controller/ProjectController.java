@@ -30,20 +30,28 @@ public class ProjectController {
 
     @RequestMapping(value = "/course/projects", method = RequestMethod.GET)
     public List<ProjectsResponse> getProjectList(@RequestParam(value = "course_id",required = true)String id, HttpSession session) {
-
         List<ProjectsResponse> projectsResponses = new ArrayList<>();
         ProjectsResponse projectsDetail = new ProjectsResponse();
         List<Program> programList = programService.list();
-        session.setAttribute("program_id", projectsDetail.getId());
-        session.setAttribute("course_id",id);
+
+        //session.setAttribute("program_id", projectsDetail.getId());
+        // session.setAttribute("course_id",id);
         for (int i = 0; i < programList.size(); i++) {
             Program program = programList.get(i);
             if (program.getCourseID().toString().equals(id)) {
                 projectsDetail.setId(program.getProgramID().toString());
-                projectsDetail.setDescription(program.getIntroduction());
                 projectsDetail.setName(program.getProgramName());
-                projectsDetail.setStart_time(program.getStartTime().toString());
-                projectsDetail.setEnd_time(program.getEndTime().toString());
+                projectsDetail.setDescription(program.getIntroduction());
+                LocalDateTime start=LocalDateTime.now();
+
+                int year=Integer.parseInt(program.getEndTime().toString().split("-")[0]);
+                int month=Integer.parseInt(program.getEndTime().toString().split("-")[1]);
+                int day=Integer.parseInt(program.getEndTime().toString().split("-")[2]);
+                projectsDetail.setStart_time(start.toString());
+                projectsDetail.setEnd_time(LocalDateTime.of(year,month,day,start.getHour(),start.getMinute()).toString());
+
+                //projectsDetail.setStart_time(program.getStartTime().toString());
+                //projectsDetail.setEnd_time(program.getEndTime().toString());
                 if (userService.ifChooseProgram(program.getProgramID(), session.getAttribute("id").toString()) == null) {
                     projectsDetail.setIsAdd("false");
                 } else {
@@ -60,7 +68,7 @@ public class ProjectController {
         Program program = new Program();
         List<HashMap> test = userService.selectFromProgramUser(id);
         int islead = (test==null || test.size() == 0)?1:2;
-        userService.chooseProgram(program.getProgramID(),session.getAttribute("id").toString(),0);
+        userService.chooseProgram(program.getProgramID(),session.getAttribute("id").toString(),islead);
         return new ResultResponse("true","课程添加成功！");
     }
 
@@ -78,21 +86,30 @@ public class ProjectController {
 
 
     @RequestMapping(value = "/course/project/members", method = RequestMethod.GET)
-    public List<MemberResponse> getMembers(@RequestParam(value = "project_id",required = true)String id,HttpSession session){
+    public List<MemberResponse> getMembers(@RequestParam(value = "project_id",required = true)String id,HttpSession session) {
         List<MemberResponse> memberResponses = new ArrayList<>();
         MemberResponse memberlist = new MemberResponse();
         List<Program> program = programService.list();
         List<User> users = userService.list();
         Program programs = programService.getById(id);
 
-        for (int i =0;i<users.size(); i++){
+        List<HashMap> objectslist;
+        HashMap object;
+
+        for (int i = 0; i < users.size(); i++) {
             User memeber = users.get(i);
-            if(userService.ifChooseProgram(programs.getProgramID(),session.getAttribute("id").toString()) ==null){
-                memberlist.setId(memeber.getUserID());
-                memberlist.setName(memeber.getUserName());
-                memberResponses.add(memberlist);
+            objectslist = userService.selectFromProgramUserWithProgramID(session.getAttribute("id").toString());
+            for (int j = 0; j < objectslist.size(); j++) {
+                object = objectslist.get(j);
+                if (userService.ifChooseProgram(programs.getProgramID(), session.getAttribute("id").toString()) != null) {
+                    memberlist.setId(memeber.getUserID());
+                    memberlist.setName(memeber.getUserName());
+                    memberlist.setRole(object.get("isLead").toString());
+                    memberResponses.add(memberlist);
+                }
             }
-        }return memberResponses;
+
+        } return memberResponses;
     }
 
     @RequestMapping(value = "/course/project/file", method = RequestMethod.GET)
@@ -134,14 +151,28 @@ public class ProjectController {
 
     @RequestMapping(value = "/course/project/create", method = RequestMethod.POST)
     public ResultResponse createProject(@RequestBody CreateProjectRequest request, HttpSession session){
-        session.getAttribute("course_id");
+        // session.getAttribute("course_id");
         Program program = new Program();
-        program.setCourseID(new Integer(session.getAttribute("course_id").toString()));
+        program.setCourseID(Integer.parseInt(request.getCourse_id()));
         program.setProgramName(request.getName());
         program.setIntroduction(request.getDescription());
-        program.setStartTime(LocalDateTime.parse(request.getStart_time()));
-        program.setEndTime(LocalDateTime.parse(request.getEnd_time()));
-        program.setGradePolicy(request.getTeacherProportion());
+        LocalDateTime start=LocalDateTime.now();
+
+        int year=Integer.parseInt(request.getEnd_time().split("-")[0]);
+        int month=Integer.parseInt(request.getEnd_time().split("-")[1]);
+        int day=Integer.parseInt(request.getEnd_time().split("-")[2]);
+        program.setStartTime(start);
+        program.setEndTime(LocalDateTime.of(year,month,day,start.getHour(),start.getMinute()));
+
+        //program.setStartTime(LocalDateTime.parse(request.getStart_time()));
+        //program.setEndTime(LocalDateTime.parse(request.getEnd_time()));
+
+        if(request.getStudentProportion() == null){
+            program.setGradePolicy("false");
+        }else {
+            program.setGradePolicy("true");
+        }
+
         if(programService.save(program)){
             return new ResultResponse("true","成功创建项目！");
         }else {
@@ -197,8 +228,17 @@ public class ProjectController {
                         taskResponse.setId(task.getTaskID().toString());
                         taskResponse.setName(task.getTaskName());
                         taskResponse.setDescription(task.getIntroduction());
-                        taskResponse.setStart_time(task.getStartTime().toString());
-                        taskResponse.setEnd_time(task.getEndTime().toString());
+
+                        LocalDateTime start=LocalDateTime.now();
+
+                        int year=Integer.parseInt(task.getEndTime().toString().split("-")[0]);
+                        int month=Integer.parseInt(task.getEndTime().toString().split("-")[1]);
+                        int day=Integer.parseInt(task.getEndTime().toString().split("-")[2]);
+                        taskResponse.setStart_time(start.toString());
+                        taskResponse.setEnd_time(LocalDateTime.of(year,month,day,start.getHour(),start.getMinute()).toString());
+
+                        // taskResponse.setStart_time(task.getStartTime().toString());
+                        // taskResponse.setEnd_time(task.getEndTime().toString());
                         taskResponse.setFinish(object.get("isFinish").toString());
                         taskResponses.add(taskResponse);
                         break;
@@ -221,13 +261,13 @@ public class ProjectController {
             if(userService.ifChooseProgram(program.getProgramID(),session.getAttribute("id").toString()) !=null){
                 teacherScore.setName(program.getProgramName());
                 teacherScore.setRole("1");
-                teacherScore.setGrade(String.valueOf(userService.getTeacherGrade(program.getProgramID(), session.getAttribute("id").toString())*Integer.parseInt(program.getGradePolicy())*0.01));
-                teacherScore.setMessage("");
+                teacherScore.setGrade(String.valueOf(Integer.parseInt(userService.getTeacherGrade(program.getProgramID(), session.getAttribute("id").toString()).get("grade").toString())*Integer.parseInt(program.getGradePolicy())*0.01));
+                teacherScore.setMessage(userService.getTeacherGrade(program.getProgramID(), session.getAttribute("id").toString()).get("evaluation").toString());
                 scoreResponses.add(teacherScore);
                 studentScore.setName(program.getProgramName());
                 studentScore.setRole("2");
-                studentScore.setGrade(String.valueOf(userService.getStudentGrade(program.getProgramID(), session.getAttribute("id").toString())*(100-Integer.parseInt(program.getGradePolicy()))*0.01));
-                studentScore.setMessage("");
+                studentScore.setGrade(String.valueOf(Integer.parseInt(userService.getStudentGrade(program.getProgramID(), session.getAttribute("id").toString()).get("grade").toString())*(100-Integer.parseInt(program.getGradePolicy()))*0.01));
+                studentScore.setMessage(userService.getStudentGrade(program.getProgramID(), session.getAttribute("id").toString()).get("evaluation").toString());
                 scoreResponses.add(studentScore);
                 break;
             }
